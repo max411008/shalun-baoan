@@ -132,6 +132,23 @@
   .news-item time{font-size:13px;color:var(--gold);font-weight:700;letter-spacing:.1em}
   .news-item h3{font-size:19px;color:var(--ink);margin:2px 0 6px}
   .news-item p{margin:0;color:var(--ink-2);white-space:pre-line}
+  /* 最新消息：列表只顯示日期＋標題，點開看內容與照片（MAX 2026-10-08 代客料理區） */
+  button.news-item{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;cursor:pointer}
+  button.news-item:hover{background:#FBF7F0}
+  button.news-item .t{flex:1;min-width:0}
+  button.news-item h3{margin:2px 0 0}
+  button.news-item .go{color:var(--red);font-size:14px;white-space:nowrap}
+  #news-dlg{border:0;padding:0;max-width:760px;width:calc(100% - 24px);max-height:calc(100% - 24px);background:#fff;color:var(--ink)}
+  #news-dlg::backdrop{background:rgba(20,15,10,.6)}
+  #news-dlg .hd{position:sticky;top:0;background:#fff;border-bottom:2px solid var(--red);padding:14px 52px 12px 20px}
+  #news-dlg .hd time{font-size:13px;color:var(--gold);font-weight:700;letter-spacing:.1em}
+  #news-dlg .hd h3{margin:2px 0 0;font-size:20px}
+  #news-dlg .x{position:absolute;z-index:2;top:10px;right:10px;width:36px;height:36px;border:0;background:none;font-size:26px;line-height:1;color:var(--ink-2);cursor:pointer}
+  #news-dlg .bd{padding:16px 20px 22px}
+  #news-dlg .bd p{white-space:pre-line;margin:0 0 14px;color:var(--ink-2)}
+  #news-dlg .ph{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  #news-dlg .ph img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+  @media (max-width:480px){#news-dlg .ph{grid-template-columns:1fr 1fr}}
   .nt-progress{margin:0 0 14px;padding:10px 14px;background:#fff;border:1px dashed var(--gold);color:var(--ink-2);white-space:pre-line}
   .more{text-align:center;margin:18px 0 0}
   .more button{font:inherit;font-size:15px;padding:8px 22px;border:1px solid var(--red);background:#fff;color:var(--red);cursor:pointer}
@@ -491,6 +508,14 @@
     var b=document.querySelector('[data-more="'+id+'"]');
     if(base+list.length>LIM){if(!b){g.insertAdjacentHTML('afterend','<p class="more"><button type="button" data-more="'+id+'">看更多照片</button></p>');b=document.querySelector('[data-more="'+id+'"]')}b.hidden=false;
       b.onclick=function(){g.classList.add('all');b.hidden=true}}}
+  function openNews(n){var d=document.getElementById('news-dlg');
+    if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="news-dlg"><button type="button" class="x" aria-label="關閉">×</button><div class="hd"></div><div class="bd"></div></dialog>');
+      d=document.getElementById('news-dlg');d.querySelector('.x').onclick=function(){d.close()};
+      d.addEventListener('click',function(e){if(e.target===d)d.close()})}
+    d.querySelector('.hd').innerHTML='<time>'+esc(n.date)+'</time><h3>'+esc(n.title)+'</h3>';
+    d.querySelector('.bd').innerHTML=(n.body?'<p>'+esc(n.body)+'</p>':'')+((n.photos||[]).length?'<div class="ph">'+n.photos.map(function(p){
+      return '<a href="'+esc(p.src)+'" target="_blank" rel="noopener"><img src="'+esc(p.thumb)+'" alt="'+esc(n.title)+'" loading="lazy" decoding="async"></a>'}).join('')+'</div>':'');
+    d.querySelector('.bd').scrollTop=0;d.showModal()}
   fetch('content.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null}).then(function(c){
     if(!c)return;var s=c.settings||{},ph=c.photos||{};
     document.querySelectorAll('[data-f]').forEach(function(e){var v=s[e.dataset.f];if(!v)return;
@@ -503,7 +528,9 @@
         if(im.caption)box.querySelector('.cap').textContent=im.caption}}
     var news=c.news||[];
     if(news.length||(ph['活動']||[]).length){show('news');
-      document.getElementById('news-list').innerHTML=news.map(function(n){return '<article class="news-item"><time>'+esc(n.date)+'</time><h3>'+esc(n.title)+'</h3>'+(n.body?'<p>'+esc(n.body)+'</p>':'')+'</article>'}).join('');
+      var nl=document.getElementById('news-list');
+      nl.innerHTML=news.map(function(n,i){var k=(n.photos||[]).length;return '<button type="button" class="news-item" data-n="'+i+'"><span class="t"><time>'+esc(n.date)+'</time><h3>'+esc(n.title)+'</h3></span><span class="go">'+(k?'📷 '+k+' 張 ':'')+'看內容 ›</span></button>'}).join('');
+      nl.onclick=function(e){var b=e.target.closest('[data-n]');if(b)openNews(news[+b.dataset.n])}
       fillGallery('g-活動',ph['活動'],false)}
     fillGallery('g-廟景',ph['廟景'],true);
   }).catch(function(){});

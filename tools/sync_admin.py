@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """後台試算表 → 網站 content.json＋照片（由 GitHub Actions 定時跑）。
 
-輸入：後台試算表（知道連結者可檢視）四個分頁的 CSV、照片雲端檔（知道連結者可檢視）。
+輸入：後台試算表（知道連結者可檢視）四個分頁的 CSV（最新消息第 5 欄＝該則照片的檔案ID，逗號分隔）、照片雲端檔（知道連結者可檢視）。
 判定：_meta 的 version 跟現有 content.json 一樣就什麼都不做；不一樣才重建。
 出口：content.json、img/u/<檔案ID>.jpg（大圖 1600px）與 <檔案ID>_t.jpg（縮圖 480px）；被刪的照片檔一併移除。
 """
@@ -63,10 +63,17 @@ def main():
         print(f"NO_CHANGE version={version or '-'}")
         return
     settings = {r[0]: r[2].strip() for r in tab("設定") if len(r) >= 3 and r[0]}
-    news = [{"date": r[0].strip().lstrip("'"), "title": r[1].strip(), "body": r[2].strip()}
+    news = [{"date": r[0].strip().lstrip("'"), "title": r[1].strip(), "body": r[2].strip(),
+             "ids": [x.strip() for x in (r[4] if len(r) >= 5 else "").split(",") if x.strip()][:9]}
             for r in tab("最新消息") if len(r) >= 4 and r[1].strip() and r[3].strip() != "否"]
     news.sort(key=lambda n: n["date"], reverse=True)
     photos, keep = {}, set()
+    for n in news:  # 最新消息的照片（每則最多 9 張，網站點進該則才顯示）
+        n["photos"] = []
+        for fid in n.pop("ids"):
+            if save_photo(fid):
+                keep.add(fid)
+                n["photos"].append({"src": f"img/u/{fid}.jpg", "thumb": f"img/u/{fid}_t.jpg"})
     rows = [r for r in tab("照片") if len(r) >= 6 and r[0].strip()]
     rows.sort(key=lambda r: float(r[5] or 0))
     for r in rows:
