@@ -137,6 +137,7 @@
   button.news-item:hover{background:#FBF7F0}
   button.news-item .t{flex:1;min-width:0}
   button.news-item h3{margin:2px 0 0}
+  button.news-item .pin{display:inline-block;background:var(--red);color:#fff;font-size:12px;letter-spacing:.1em;padding:0 7px;margin-right:8px;border-radius:2px}
   button.news-item .go{color:var(--red);font-size:14px;white-space:nowrap}
   #news-dlg{border:0;padding:0;max-width:760px;width:calc(100% - 24px);max-height:calc(100% - 24px);background:#fff;color:var(--ink)}
   #news-dlg::backdrop{background:rgba(20,15,10,.6)}
@@ -529,7 +530,7 @@
     var news=c.news||[];
     if(news.length||(ph['活動']||[]).length){show('news');
       var nl=document.getElementById('news-list');
-      nl.innerHTML=news.map(function(n,i){var k=(n.photos||[]).length;return '<button type="button" class="news-item" data-n="'+i+'"><span class="t"><time>'+esc(n.date)+'</time><h3>'+esc(n.title)+'</h3></span><span class="go">'+(k?'📷 '+k+' 張 ':'')+'看內容 ›</span></button>'}).join('');
+      nl.innerHTML=news.map(function(n,i){var k=(n.photos||[]).length;return '<button type="button" class="news-item" data-n="'+i+'"><span class="t"><time>'+(n.pin?'<span class="pin">置頂</span>':'')+esc(n.date)+'</time><h3>'+esc(n.title)+'</h3></span><span class="go">'+(k?'📷 '+k+' 張 ':'')+'看內容 ›</span></button>'}).join('');
       nl.onclick=function(e){var b=e.target.closest('[data-n]');if(b)openNews(news[+b.dataset.n])}
       fillGallery('g-活動',ph['活動'],false)}
     fillGallery('g-廟景',ph['廟景'],true);

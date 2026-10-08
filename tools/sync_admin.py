@@ -64,9 +64,10 @@ def main():
         return
     settings = {r[0]: r[2].strip() for r in tab("設定") if len(r) >= 3 and r[0]}
     news = [{"date": r[0].strip().lstrip("'"), "title": r[1].strip(), "body": r[2].strip(),
-             "ids": [x.strip() for x in (r[4] if len(r) >= 5 else "").split(",") if x.strip()][:9]}
+             "ids": [x.strip() for x in (r[4] if len(r) >= 5 else "").split(",") if x.strip()][:9],
+             "pin": len(r) >= 6 and r[5].strip() == "是"}
             for r in tab("最新消息") if len(r) >= 4 and r[1].strip() and r[3].strip() != "否"]
-    news.sort(key=lambda n: n["date"], reverse=True)
+    news.sort(key=lambda n: (n["pin"], n["date"]), reverse=True)  # 置頂的在最上面，其餘新到舊
     photos, keep = {}, set()
     for n in news:  # 最新消息的照片（每則最多 9 張，網站點進該則才顯示）
         n["photos"] = []
