@@ -114,6 +114,30 @@
   .maplink:hover,.maplink:focus-visible{background:var(--red-deep);outline:none}
   @media (max-width:760px){.visit{grid-template-columns:1fr}}
 
+  /* 建新廟專區：置頂、金框大卡 */
+  #newtemple{background:linear-gradient(180deg,#FFF9EF,#FFFFFF);padding-top:64px}
+  .nt{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:stretch}
+  .nt-img{position:relative;min-height:320px;background:var(--bg-2);border:1px solid var(--gold);box-shadow:0 0 0 6px #fff,0 0 0 7px var(--gold-soft);display:grid;place-items:center;text-align:center;color:var(--muted);font-size:15px}
+  .nt-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .nt-img .cap{position:absolute;left:0;right:0;bottom:0;padding:8px 14px;background:rgba(122,21,15,.82);color:#FFF4DC;font-size:14px;letter-spacing:.08em}
+  .nt-txt p{margin:0 0 14px;color:var(--ink-2);text-align:justify}
+  .donate{margin-top:18px;background:#fff;border:1px solid var(--line);border-top:4px solid var(--red);padding:18px 22px}
+  .donate h3{font-size:21px;font-weight:900;color:var(--red-deep);letter-spacing:.14em;margin-bottom:6px}
+  .donate .kv{margin-top:8px}
+  .donate .acct{font-family:"Noto Serif TC",serif;font-size:19px;font-weight:700;letter-spacing:.06em}
+  @media (max-width:820px){.nt{grid-template-columns:1fr;gap:28px}.nt-img{min-height:220px}}
+
+  .news-list{max-width:860px;margin:0 auto 28px}
+  .news-item{background:#fff;border:1px solid var(--line);border-left:4px solid var(--red);padding:16px 22px;margin-bottom:12px}
+  .news-item time{font-size:13px;color:var(--gold);font-weight:700;letter-spacing:.1em}
+  .news-item h3{font-size:19px;color:var(--ink);margin:2px 0 6px}
+  .news-item p{margin:0;color:var(--ink-2);white-space:pre-line}
+  .nt-progress{margin:0 0 14px;padding:10px 14px;background:#fff;border:1px dashed var(--gold);color:var(--ink-2);white-space:pre-line}
+  .more{text-align:center;margin:18px 0 0}
+  .more button{font:inherit;font-size:15px;padding:8px 22px;border:1px solid var(--red);background:#fff;color:var(--red);cursor:pointer}
+  .gallery a{display:block}
+  .gallery figure.extra{display:none}.gallery.all figure.extra{display:block}
+
   /* 頁尾：朱紅底白字 */
   footer{background:var(--red-deep);color:#F8EBD3;padding:36px 0 44px;font-size:14.5px;border-top:4px solid var(--gold)}
   footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
@@ -126,7 +150,7 @@
   <div class="wrap">
     <a class="brand" href="#"><span class="seal">保</span><span class="name">沙崙保安宮</span></a>
     <nav>
-      <a href="#history">沿革</a><a href="#deity">神明</a><a href="#gallery">廟景</a><a href="#now">紅壇</a><a href="#steles">石碑</a><a href="#visit">參拜</a>
+      <a href="#newtemple" data-nav="newtemple" hidden>建新廟</a><a href="#news" data-nav="news" hidden>消息</a><a href="#history">沿革</a><a href="#deity">神明</a><a href="#gallery">廟景</a><a href="#now">紅壇</a><a href="#steles">石碑</a><a href="#visit">參拜</a>
     </nav>
   </div>
 </header>
@@ -146,6 +170,40 @@
     <div class="fact"><b>每年宮慶</b><span>農曆八月廿一日</span></div>
   </div>
 </div>
+
+<section id="newtemple" hidden>
+  <div class="wrap">
+    <div class="sec-head"><h2>興建新廟</h2><p>誠邀十方信眾共襄盛舉</p></div>
+    <div class="nt">
+      <div class="nt-img">
+        <span id="nt-noimg">新廟設計圖／完工示意圖<br><span class="pending">待廟方提供</span></span>
+        <div class="cap">沙崙保安宮新廟　示意圖</div>
+      </div>
+      <div class="nt-txt">
+        <p id="nt-intro">舊廟因桃園航空城計畫列入徵收、將來拆除，管理委員會已在新廟預定地搭建臨時紅壇，暫奉保安廣澤尊王與眾神。為讓尊王早日安座新殿，保安宮正籌建新廟，懇請各方信士大德發心護持，共成功德。</p>
+        <div class="donate">
+          <h3>護持捐款</h3>
+          <dl class="kv">
+            <dt>銀行</dt><dd data-f="nt_bank"><span class="pending">待廟方提供</span></dd>
+            <dt>戶名</dt><dd data-f="nt_name"><span class="pending">待廟方提供</span></dd>
+            <dt>帳號</dt><dd class="acct" data-f="nt_account"><span class="pending">待廟方提供</span></dd>
+            <dt>現場</dt><dd data-f="nt_note">亦可至臨時紅壇（中央路 418 之一號）親自添緣</dd>
+            <dt>洽詢</dt><dd><a href="tel:033836940">03-383-6940</a></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="news" hidden>
+  <div class="wrap">
+    <div class="sec-head"><h2>最新消息</h2><p>法會活動與廟務公告</p></div>
+    <div class="news-list" id="news-list"></div>
+    <div class="gallery" id="g-活動"></div>
+    <p class="more"><button type="button" data-more="g-活動" hidden>看更多照片</button></p>
+  </div>
+</section>
 
 <section id="history">
   <div class="wrap">
@@ -195,7 +253,7 @@
 <section id="gallery">
   <div class="wrap">
     <div class="sec-head"><h2>廟景</h2></div>
-    <div class="gallery">
+    <div class="gallery" id="g-廟景">
 <figure><img src="img/p24.jpg" alt="廟貌正面" loading="lazy"><figcaption>廟貌正面</figcaption></figure>
 <figure><img src="img/p26.jpg" alt="廟埕與兩側樓閣" loading="lazy"><figcaption>廟埕與兩側樓閣</figcaption></figure>
 <figure><img src="img/p27.jpg" alt="廟埕樓閣" loading="lazy"><figcaption>廟埕樓閣</figcaption></figure>
@@ -402,11 +460,11 @@
       <a class="map maplink" href="https://www.google.com/maps/search/?api=1&amp;query=%E6%A1%83%E5%9C%92%E5%B8%82%E5%A4%A7%E5%9C%92%E5%8D%80%E4%B8%AD%E5%A4%AE%E8%B7%AF418%E4%B9%8B1%E8%99%9F" target="_blank" rel="noopener"><span><b>📍 用 Google 地圖導航</b><br>中央路 418 之一號（臨時紅壇）</span></a>
       <div>
         <ul>
-          <li><b>地址</b>：桃園市大園區沙崙里中央路 418 之一號（臨時紅壇）</li>
-          <li><b>管理委員會</b>：主任委員 駱文章</li>
-          <li><b>電話</b>：<a href="tel:033836940">03-383-6940</a></li>
-          <li><b>開放時間</b>：每日 06:00 – 19:00</li>
-          <li><b>點燈服務</b>：光明燈、太歲燈 <span class="pending">登記方式待提供</span></li>
+          <li><b>地址</b>：<span data-f="address">桃園市大園區沙崙里中央路 418 之一號（臨時紅壇）</span></li>
+          <li><b>管理委員會</b>：主任委員 <span data-f="chair">駱文章</span></li>
+          <li><b>電話</b>：<a href="tel:033836940" data-f="phone" data-tel>03-383-6940</a></li>
+          <li><b>開放時間</b>：<span data-f="hours">每日 06:00 – 19:00</span></li>
+          <li><b>點燈服務</b>：<span data-f="lamp">光明燈、太歲燈</span> <span class="pending">登記方式待提供</span></li>
         </ul>
       </div>
     </div>
@@ -420,5 +478,36 @@
   </div>
 </footer>
 
+<script>
+/* 後台內容：讀 content.json 套進頁面；讀不到就維持上面寫死的內容 */
+(function(){
+  function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function show(id){var e=document.getElementById(id);if(e)e.hidden=false;var n=document.querySelector('[data-nav="'+id+'"]');if(n)n.hidden=false}
+  function fig(p,extra){return '<figure'+(extra?' class="extra"':'')+'><a href="'+esc(p.src)+'" target="_blank" rel="noopener"><img src="'+esc(p.thumb)+'" alt="'+esc(p.caption)+'" loading="lazy" decoding="async"></a>'+(p.caption?'<figcaption>'+esc(p.caption)+'</figcaption>':'')+'</figure>'}
+  function fillGallery(id,list,append){var g=document.getElementById(id);if(!g||!list||!list.length)return;
+    var base=append?g.querySelectorAll('figure').length:0,LIM=12;
+    var html=list.map(function(p,i){return fig(p,base+i>=LIM)}).join('');
+    if(append)g.insertAdjacentHTML('beforeend',html);else g.innerHTML=html;
+    var b=document.querySelector('[data-more="'+id+'"]');
+    if(base+list.length>LIM){if(!b){g.insertAdjacentHTML('afterend','<p class="more"><button type="button" data-more="'+id+'">看更多照片</button></p>');b=document.querySelector('[data-more="'+id+'"]')}b.hidden=false;
+      b.onclick=function(){g.classList.add('all');b.hidden=true}}}
+  fetch('content.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null}).then(function(c){
+    if(!c)return;var s=c.settings||{},ph=c.photos||{};
+    document.querySelectorAll('[data-f]').forEach(function(e){var v=s[e.dataset.f];if(!v)return;
+      e.textContent=v;if(e.hasAttribute('data-tel'))e.href='tel:'+v.replace(/[^0-9+]/g,'')});
+    if(s.nt_intro||s.nt_account||(ph['建新廟']||[]).length){show('newtemple');
+      if(s.nt_intro)document.getElementById('nt-intro').textContent=s.nt_intro;
+      if(s.nt_progress)document.getElementById('nt-intro').insertAdjacentHTML('afterend','<p class="nt-progress"><b>目前進度：</b>'+esc(s.nt_progress)+'</p>');
+      var im=(ph['建新廟']||[])[0];if(im){var box=document.querySelector('.nt-img');document.getElementById('nt-noimg').remove();
+        box.insertAdjacentHTML('afterbegin','<img src="'+esc(im.src)+'" alt="'+esc(im.caption||'新廟示意圖')+'" loading="lazy">');
+        if(im.caption)box.querySelector('.cap').textContent=im.caption}}
+    var news=c.news||[];
+    if(news.length||(ph['活動']||[]).length){show('news');
+      document.getElementById('news-list').innerHTML=news.map(function(n){return '<article class="news-item"><time>'+esc(n.date)+'</time><h3>'+esc(n.title)+'</h3>'+(n.body?'<p>'+esc(n.body)+'</p>':'')+'</article>'}).join('');
+      fillGallery('g-活動',ph['活動'],false)}
+    fillGallery('g-廟景',ph['廟景'],true);
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>
