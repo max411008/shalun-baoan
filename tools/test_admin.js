@@ -9,18 +9,40 @@ const vm = require('node:vm');
 const renderer = require('../blocks.js');
 const clone = value => JSON.parse(JSON.stringify(value));
 const elements = new Map();
+const unescapeHTML = value => value.replace(/&(amp|lt|gt|quot|#39);/g, (_, entity) => ({amp: '&', lt: '<', gt: '>', quot: '"', '#39': "'"})[entity]);
+function formControls(html) {
+  return Array.from(html.matchAll(/<input\b([^>]*)>|<textarea\b([^>]*)>([\s\S]*?)<\/textarea>/g), match => {
+    const textarea = match[2] !== undefined;
+    const attributes = {};
+    for (const attribute of (textarea ? match[2] : match[1]).matchAll(/([\w-]+)(?:="([^"]*)")?/g)) attributes[attribute[1]] = unescapeHTML(attribute[2] || '');
+    const dataset = {};
+    for (const [name, value] of Object.entries(attributes)) if (name.startsWith('data-')) {
+      dataset[name.slice(5).replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())] = value;
+    }
+    return {dataset, type: textarea ? 'textarea' : attributes.type || 'text',
+      value: textarea ? unescapeHTML(match[3] || '') : attributes.value || '',
+      checked: 'checked' in attributes, disabled: 'disabled' in attributes,
+      hasAttribute: name => name in attributes, focus() {}};
+  });
+}
 function element(id) {
   if (!elements.has(id)) {
     const classes = new Set();
     elements.set(id, {
-      innerHTML: '', textContent: '', value: '', children: [{}], style: {},
+      _html: '', _controls: [], textContent: '', value: '', children: [{}], style: {},
+      get innerHTML() { return this._html; },
+      set innerHTML(value) { this._html = value; this._controls = formControls(value); },
       listeners: {}, classList: {
         add: name => classes.add(name), remove: name => classes.delete(name),
         contains: name => classes.has(name),
         toggle(name, on) { on = on === undefined ? !classes.has(name) : on; on ? classes.add(name) : classes.delete(name); return on; },
       },
       addEventListener(name, callback) { this.listeners[name] = callback; },
-      querySelector() { return {focus() {}}; },
+      querySelectorAll(selector) {
+        const attribute = selector.match(/^\[([\w-]+)\]$/);
+        return attribute ? this._controls.filter(control => control.hasAttribute(attribute[1])) : [];
+      },
+      querySelector(selector) { return this.querySelectorAll(selector)[0] || {focus() {}}; },
       focus() {},
     });
   }
@@ -73,7 +95,9 @@ async function run() {
   assert.equal(context.D.news.length, 1);
   assert.deepEqual(Array.from(context.D.blocks, b => b.show), [true, true, false]);
   assert.doesNotMatch(element('blockList').innerHTML, /hidden-block[^]*?data-block-index="0"/);
-  context.D.blocks[0].show = false;
+  const firstVisibility = element('blockList').querySelectorAll('[data-block-show]')[0];
+  firstVisibility.checked = false;
+  element('blockList').listeners.change({target: firstVisibility});
   const firstSave = clone(context.payload());
   assert.equal(firstSave.newsVisibilityHandled, true, '首則消息已在畫面開啟，首次儲存也須保留隨後的手動隱藏');
   assert.equal(firstSave.blocks[0].show, false);
@@ -94,6 +118,44 @@ async function run() {
   context.renderBlocks();
   assert.doesNotMatch(element('blockList').innerHTML, /askDeleteBlock/);
   console.log('PASS 收合積木不含刪除入口；展開後刪除僅在編輯區最底部');
+
+  reset([block('org', 'org', {term: '任期 115年7月25日至119年7月24日', groups: [
+    {title: '主任委員', names: ['王大明']}, {title: '委員', names: ['林　生', '陳文正']},
+  ]})]);
+  context.selectBlock(0);
+  let orgFields = element('blockList').querySelectorAll('[data-block-field]');
+  const orgField = name => orgFields.find(control => control.dataset.blockField === name);
+  assert.match(element('blockList').innerHTML, /任期文字|職稱與姓名|新增職稱/);
+  assert.equal(orgField('data.groups.1.names').type, 'textarea');
+  assert.equal(orgField('data.groups.1.names').value, '林　生\n陳文正');
+  orgField('data.term').value = '任期更新';
+  orgField('data.groups.1.title').value = '常務委員';
+  const namesField = orgField('data.groups.1.names');
+  namesField.value = '林　生、陳文正\n 黃大同 \n';
+  element('blockList').listeners.input({target: namesField});
+  assert.deepEqual(clone(context.D.blocks[0].data.groups[1].names), ['林　生', '陳文正', '黃大同']);
+  const savedOrg = clone(context.payload()).blocks[0];
+  assert.equal(savedOrg.data.term, '任期更新', '未觸發 input 的畫面值也須在儲存前擷取');
+  assert.equal(savedOrg.data.groups[1].title, '常務委員');
+  assert.deepEqual(savedOrg.data.groups[1].names, ['林　生', '陳文正', '黃大同']);
+  context.moveArrayRow(0, 'data.groups', 1, -1);
+  assert.equal(context.D.blocks[0].data.groups[0].title, '常務委員');
+  context.addOrgGroup(0);
+  orgFields = element('blockList').querySelectorAll('[data-block-field]');
+  orgField('data.groups.2.title').value = '顧問';
+  orgField('data.groups.2.names').value = '張大明、李文華';
+  context.captureBlocks();
+  assert.deepEqual(clone(context.D.blocks[0].data.groups[2]), {title: '顧問', names: ['張大明', '李文華']});
+  context.removeArrayRow(0, 'data.groups', 2);
+  element('confirmAction').onclick();
+  assert.equal(context.D.blocks[0].data.groups.length, 2);
+  reset([block('org-empty', 'org', {term: '', groups: []})]);
+  context.selectBlock(0);
+  assert.match(element('blockList').innerHTML, /新增職稱/);
+  context.addOrgGroup(0);
+  assert.deepEqual(clone(context.D.blocks[0].data.groups), [{title: '', names: []}]);
+  assert.match(context.miniature('org'), />組<\/b>/);
+  console.log('PASS 組織表具名表單、姓名陣列往返、草稿擷取、群組排序／新增／移除與空表新增');
 
   for (const field of ['timeline', 'entries']) {
     reset([block('items', 'history', {[field]: [{title: '保留此項', body: '原內容'}]})]);

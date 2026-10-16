@@ -143,6 +143,91 @@ var DEFAULTS = [
  },
  {
   "order": 6,
+  "id": "org",
+  "style": "org",
+  "title": "管理委員會組織表",
+  "subtitle": "第八屆",
+  "body": "",
+  "photos": [],
+  "show": true,
+  "navTitle": "組織",
+  "data": {
+   "term": "任期 115年7月25日至119年7月24日",
+   "groups": [
+    {
+     "title": "主任委員",
+     "names": [
+      "駱文章"
+     ]
+    },
+    {
+     "title": "副主任委員",
+     "names": [
+      "鄭美雲",
+      "許文松"
+     ]
+    },
+    {
+     "title": "常務管理委員",
+     "names": [
+      "陳瑞昌",
+      "陳阿勇",
+      "簡國強",
+      "韓坤宏",
+      "江來樂"
+     ]
+    },
+    {
+     "title": "管理委員",
+     "names": [
+      "陳春成",
+      "陳滿枝",
+      "駱文德",
+      "呂陳芳",
+      "李樹木",
+      "陳永昌",
+      "陳文華",
+      "游清輝",
+      "黃裕屏",
+      "楊瑞金",
+      "郭汶龍"
+     ]
+    },
+    {
+     "title": "候補管理委員",
+     "names": [
+      "徐啟民",
+      "游智鈞",
+      "簡金輝",
+      "游成章"
+     ]
+    },
+    {
+     "title": "常務監察委員",
+     "names": [
+      "游武結"
+     ]
+    },
+    {
+     "title": "監察委員",
+     "names": [
+      "林　生",
+      "陳煥生",
+      "陳瑞和",
+      "陳文興"
+     ]
+    },
+    {
+     "title": "候補監察委員",
+     "names": [
+      "李文進"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "order": 7,
   "id": "deity",
   "style": "deity",
   "title": "奉祀神明",
@@ -185,7 +270,7 @@ var DEFAULTS = [
   }
  },
  {
-  "order": 7,
+  "order": 8,
   "id": "gallery",
   "style": "gallery",
   "title": "廟景",
@@ -272,7 +357,7 @@ var DEFAULTS = [
   }
  },
  {
-  "order": 8,
+  "order": 9,
   "id": "now",
   "style": "gallery",
   "title": "臨時紅壇",
@@ -303,7 +388,7 @@ var DEFAULTS = [
   "data": {}
  },
  {
-  "order": 9,
+  "order": 10,
   "id": "steles",
   "style": "stele",
   "title": "石碑全文",
@@ -346,7 +431,7 @@ var DEFAULTS = [
   }
  },
  {
-  "order": 10,
+  "order": 11,
   "id": "visit",
   "style": "address",
   "title": "參拜資訊",
@@ -367,7 +452,7 @@ var DEFAULTS = [
   }
  },
  {
-  "order": 11,
+  "order": 12,
   "id": "footer",
   "style": "footer",
   "title": "沙崙保安宮",
@@ -385,6 +470,16 @@ var DEFAULTS = [
  }
 ];
 var CSS = "\n  :root{\n    color-scheme:light;\n    --bg:#FFFFFF; --bg-2:#FBF7F0; --ink:#1A1714; --ink-2:#3D3732; --muted:#857B70;\n    --red:#A8231A; --red-deep:#7A150F; --gold:#B38A3E; --gold-soft:#E8D9B5;\n    --line:#E7DFD2; --pend:#2E6A5D;\n  }\n  *{box-sizing:border-box}\n  html{scroll-behavior:smooth}\n  body{margin:0;background:var(--bg);color:var(--ink);font-family:\"Noto Sans TC\",-apple-system,\"PingFang TC\",\"Microsoft JhengHei\",sans-serif;font-size:17px;line-height:1.85}\n  img{max-width:100%;display:block}\n  a{color:inherit}\n  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}\n  h1,h2,h3{font-family:\"Noto Serif TC\",\"Songti TC\",\"PMingLiU\",serif;text-wrap:balance;margin:0}\n\n  /* 頂部：朱紅細條＋白底導覽 */\n  .top{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-top:4px solid var(--red);box-shadow:0 1px 0 var(--gold-soft)}\n  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}\n  .brand{display:flex;align-items:center;gap:12px;font-family:\"Noto Serif TC\",serif;font-weight:900;font-size:21px;letter-spacing:.12em;text-decoration:none;color:var(--red-deep)}\n  .seal{width:36px;height:36px;border-radius:3px;background:var(--red);color:#FFF4DC;display:grid;place-items:center;font-size:17px;font-weight:900;box-shadow:inset 0 0 0 2px #FFF4DC,inset 0 0 0 3px var(--red)}\n  nav{display:flex;gap:24px;font-size:15.5px;font-weight:500;letter-spacing:.06em}\n  nav a{text-decoration:none;color:var(--ink-2);padding:4px 0;border-bottom:2px solid transparent}\n  nav a:hover,nav a:focus-visible{color:var(--red);border-bottom-color:var(--red);outline:none}\n  nav,.hist>*,.deity>*,.visit>*,.facts>*{min-width:0}\n  @media (max-width:760px){nav{gap:14px;font-size:14px;overflow-x:auto}.brand span.name{display:none}}\n\n  /* 主視覺：照片＋底部漸層，標題白字 */\n  .hero{position:relative;height:min(66vh,580px);min-height:360px;display:flex;align-items:flex-end;background:#3a2a20}\n  .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}\n  .hero::after{content:\"\";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(40,12,8,.62) 100%)}\n  .hero .t{position:relative;z-index:1;width:100%;max-width:1080px;margin:0 auto;padding:0 20px 76px;color:#fff}\n  .plaque-h{font-family:\"Noto Serif TC\",serif;font-weight:900;font-size:clamp(42px,7vw,72px);letter-spacing:.2em;line-height:1.1;color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.45)}\n  .hero .sub{margin-top:12px;font-size:16.5px;letter-spacing:.12em;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5)}\n\n  /* 重點資訊卡：浮在主視覺下緣 */\n  .facts{position:relative;z-index:2;margin-top:-48px;display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:4px solid var(--red);box-shadow:0 10px 30px rgba(60,30,10,.12)}\n  .fact{padding:18px 22px;border-right:1px solid var(--line);text-align:center}\n  .fact:last-child{border-right:0}\n  .fact b{display:block;font-size:12.5px;letter-spacing:.2em;color:var(--gold);font-weight:700;margin-bottom:4px}\n  .fact span{font-family:\"Noto Serif TC\",serif;font-size:18px;font-weight:700;color:var(--ink)}\n  @media (max-width:760px){.facts{grid-template-columns:1fr 1fr;margin-top:-36px}.fact{border-bottom:1px solid var(--line)}.fact:nth-child(2n){border-right:0}}\n\n  .pending{color:var(--pend);font-size:13px;border:1px solid var(--pend);padding:0 7px;border-radius:2px;letter-spacing:.04em;white-space:nowrap;font-family:\"Noto Sans TC\",sans-serif;font-weight:500}\n\n  /* 區塊：白／米白交替，標題置中＋金線紅菱 */\n  section{padding:72px 0}\n  section:nth-of-type(even){background:var(--bg-2)}\n  .sec-head{text-align:center;margin-bottom:40px}\n  .sec-head h2{display:inline-flex;align-items:center;gap:18px;font-size:30px;font-weight:900;letter-spacing:.3em;color:var(--red-deep);padding-left:.3em}\n  .sec-head h2::before,.sec-head h2::after{content:\"\";width:56px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));}\n  .sec-head h2::after{transform:scaleX(-1)}\n  .sec-head p{margin:10px 0 0;color:var(--muted);font-size:15px;letter-spacing:.06em}\n  .sec-head p::before{content:\"◆\";display:block;color:var(--red);font-size:10px;margin-bottom:8px}\n  .sec-head p:empty{display:none}\n\n  .hist{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:start}\n  .hist p{margin:0 0 16px;color:var(--ink-2);text-align:justify}\n  .hist p:first-child::first-letter{float:left;font-family:\"Noto Serif TC\",serif;font-size:52px;line-height:1;font-weight:900;color:var(--red);margin:6px 10px 0 0}\n  .timeline{list-style:none;margin:0;padding:6px 0 0;border-left:2px solid var(--gold-soft)}\n  .timeline li{position:relative;padding:0 0 22px 26px}\n  .timeline li::before{content:\"\";position:absolute;left:-7px;top:10px;width:12px;height:12px;background:var(--red);transform:rotate(45deg)}\n  .timeline b{display:block;font-family:\"Noto Serif TC\",serif;font-size:18px;color:var(--red-deep)}\n  .timeline span{color:var(--ink-2);font-size:15.5px}\n  @media (max-width:820px){.hist{grid-template-columns:1fr;gap:32px}}\n\n  .deity{display:grid;grid-template-columns:340px 1fr;gap:48px;align-items:center}\n  .deity img{aspect-ratio:4/5;object-fit:cover;width:100%;padding:8px;background:#fff;border:1px solid var(--gold);box-shadow:0 0 0 6px #fff,0 0 0 7px var(--gold-soft),0 14px 30px rgba(60,30,10,.14)}\n  .deity h3{font-size:28px;font-weight:900;color:var(--red-deep);letter-spacing:.12em;margin-bottom:14px}\n  .deity p{margin:0 0 14px;color:var(--ink-2);text-align:justify}\n  .kv{display:grid;grid-template-columns:auto 1fr;margin:20px 0 0;font-size:15.5px;border-top:1px solid var(--line)}\n  .kv dt,.kv dd{padding:9px 0;border-bottom:1px solid var(--line)}\n  .kv dt{color:var(--gold);font-weight:700;letter-spacing:.12em;padding-right:22px}\n  .kv dd{margin:0;font-weight:500}\n  @media (max-width:760px){.deity{grid-template-columns:1fr;gap:28px}.deity img{max-width:320px;margin:0 auto}}\n\n  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}\n  .gallery figure{margin:0;background:#fff;border:1px solid var(--line);overflow:hidden}\n  .gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .4s ease}\n  .gallery figure:hover img{transform:scale(1.03)}\n  .gallery figcaption{padding:10px 14px;font-size:14.5px;color:var(--ink-2);border-top:2px solid var(--red)}\n  @media (max-width:820px){.gallery{grid-template-columns:1fr 1fr;gap:12px}}\n  @media (max-width:480px){.gallery{grid-template-columns:1fr}}\n  .note{max-width:44em;margin:0 auto 28px;text-align:center;color:var(--ink-2)}\n\n  .stele{background:#fff;border:1px solid var(--line);border-left:4px solid var(--red);margin:0 auto 12px;max-width:860px}\n  .stele summary{cursor:pointer;padding:18px 22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline;list-style:none}\n  .stele summary::-webkit-details-marker{display:none}\n  .stele summary::before{content:\"＋\";color:var(--red);font-weight:900;margin-right:4px}\n  .stele[open] summary::before{content:\"－\"}\n  .stele[open] summary{border-bottom:1px dashed var(--gold-soft)}\n  .st-t{font-family:\"Noto Serif TC\",serif;font-weight:900;font-size:19px;flex:1;color:var(--ink)}\n  .st-w{font-size:13px;color:var(--muted)}\n  @media (max-width:600px){.st-t{flex-basis:calc(100% - 2em)}.st-w{padding-left:1.6em}}\n  .stele .st-photo{display:block;padding:16px 22px 0;text-align:center}\n  .stele .st-photo img{max-width:100%;max-height:560px;border:1px solid var(--line)}\n  .stele .st-photo span{display:block;font-size:13px;color:var(--muted);margin-top:4px}\n  .stele pre{margin:0;padding:18px 26px 26px;white-space:pre-wrap;word-break:break-all;font-family:\"Noto Serif TC\",serif;font-size:16.5px;line-height:2.1;color:var(--ink)}\n\n  .visit{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}\n  .visit ul{margin:0;padding:0;list-style:none}\n  .visit li{padding:12px 0;border-bottom:1px solid var(--line)}\n  .visit li b{color:var(--gold);letter-spacing:.12em;margin-right:8px}\n  .visit a[href^=\"tel\"]{color:var(--red);font-weight:700;text-decoration:none}\n  .map{width:100%;display:grid;place-items:center;text-align:center;padding:28px}\n  .maplink{text-decoration:none;color:#fff;background:var(--red);border:1px solid var(--red-deep);box-shadow:inset 0 0 0 4px var(--red),inset 0 0 0 5px #E9C77A;font-size:16px;line-height:1.8;min-height:170px}\n  .maplink b{color:#fff;font-family:\"Noto Serif TC\",serif;font-size:22px;letter-spacing:.1em}\n  .maplink:hover,.maplink:focus-visible{background:var(--red-deep);outline:none}\n  @media (max-width:760px){.visit{grid-template-columns:1fr}}\n\n  /* 建新廟專區：置頂、金框大卡 */\n  #newtemple{background:linear-gradient(180deg,#FFF9EF,#FFFFFF);padding-top:64px}\n  .nt{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:stretch}\n  .nt-img{position:relative;min-height:320px;background:var(--bg-2);border:1px solid var(--gold);box-shadow:0 0 0 6px #fff,0 0 0 7px var(--gold-soft);display:grid;place-items:center;text-align:center;color:var(--muted);font-size:15px}\n  .nt-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}\n  .nt-img img.nt-static{bottom:36px;height:calc(100% - 36px);object-position:50% 100%}\n  @media (max-width:820px){.nt-img:has(img.nt-static){min-height:0;aspect-ratio:911/600}}\n  .nt-img .cap{position:absolute;left:0;right:0;bottom:0;padding:8px 14px;background:rgba(122,21,15,.82);color:#FFF4DC;font-size:14px;letter-spacing:.08em}\n  .nt-txt p{margin:0 0 14px;color:var(--ink-2);text-align:justify}\n  .donate{margin-top:18px;background:#fff;border:1px solid var(--line);border-top:4px solid var(--red);padding:18px 22px}\n  .donate h3{font-size:21px;font-weight:900;color:var(--red-deep);letter-spacing:.14em;margin-bottom:6px}\n  .donate .kv{margin-top:8px}\n  .donate .acct{font-family:\"Noto Serif TC\",serif;font-size:19px;font-weight:700;letter-spacing:.06em}\n  @media (max-width:820px){.nt{grid-template-columns:1fr;gap:28px}.nt-img{min-height:220px}}\n\n  .news-list{max-width:860px;margin:0 auto 28px}\n  .news-item{background:#fff;border:1px solid var(--line);border-left:4px solid var(--red);padding:16px 22px;margin-bottom:12px}\n  .news-item time{font-size:13px;color:var(--gold);font-weight:700;letter-spacing:.1em}\n  .news-item h3{font-size:19px;color:var(--ink);margin:2px 0 6px}\n  .news-item p{margin:0;color:var(--ink-2);white-space:pre-line}\n  /* 最新消息：列表只顯示日期＋標題，點開看內容與照片（MAX 2026-10-08 代客料理區） */\n  button.news-item{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;cursor:pointer}\n  button.news-item:hover{background:#FBF7F0}\n  button.news-item .t{flex:1;min-width:0}\n  button.news-item h3{margin:2px 0 0}\n  button.news-item .pin{display:inline-block;background:var(--red);color:#fff;font-size:12px;letter-spacing:.1em;padding:0 7px;margin-right:8px;border-radius:2px}\n  button.news-item .go{color:var(--red);font-size:14px;white-space:nowrap}\n  #news-dlg{border:0;padding:0;max-width:760px;width:calc(100% - 24px);max-height:calc(100% - 24px);background:#fff;color:var(--ink)}\n  #news-dlg::backdrop{background:rgba(20,15,10,.6)}\n  #news-dlg .hd{position:sticky;top:0;background:#fff;border-bottom:2px solid var(--red);padding:14px 52px 12px 20px}\n  #news-dlg .hd time{font-size:13px;color:var(--gold);font-weight:700;letter-spacing:.1em}\n  #news-dlg .hd h3{margin:2px 0 0;font-size:20px}\n  #news-dlg .x{position:absolute;z-index:2;top:10px;right:10px;width:36px;height:36px;border:0;background:none;font-size:26px;line-height:1;color:var(--ink-2);cursor:pointer}\n  #news-dlg .bd{padding:16px 20px 22px}\n  #news-dlg .bd p{white-space:pre-line;margin:0 0 14px;color:var(--ink-2)}\n  #news-dlg .ph{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}\n  #news-dlg .ph img{width:100%;aspect-ratio:1;object-fit:cover;display:block}\n  @media (max-width:480px){#news-dlg .ph{grid-template-columns:1fr 1fr}}\n  .nt-progress{margin:0 0 14px;padding:10px 14px;background:#fff;border:1px dashed var(--gold);color:var(--ink-2);white-space:pre-line}\n  .more{text-align:center;margin:18px 0 0}\n  .more button{font:inherit;font-size:15px;padding:8px 22px;border:1px solid var(--red);background:#fff;color:var(--red);cursor:pointer}\n  .gallery a{display:block}\n  .gallery figure.extra{display:none}.gallery.all figure.extra{display:block}\n\n  /* 頁尾：朱紅底白字 */\n  footer{background:var(--red-deep);color:#F8EBD3;padding:36px 0 44px;font-size:14.5px;border-top:4px solid var(--gold)}\n  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}\n  footer .fn{font-family:\"Noto Serif TC\",serif;font-size:20px;font-weight:900;letter-spacing:.2em;color:#fff;display:block;margin-bottom:4px}\n\n.top nav{overflow-x:auto;max-width:100%}.top .wrap{min-width:0}.top nav a{white-space:nowrap}.block-text p{white-space:pre-line}.block-text{max-width:860px;margin:auto}\n";
+CSS += '\n/* 管理委員會：沿用朱紅、金線與襯線姓名卡。 */\n' +
+ '.org-roster{max-width:880px;margin:0 auto;display:grid;gap:30px}' +
+ '.org-group h3{text-align:center;font-size:20px;color:var(--red-deep);letter-spacing:.12em;margin:0 0 12px}' +
+ '.org-names{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}' +
+ '.org-name{min-width:0;padding:13px 10px;text-align:center;background:var(--bg);border:1px solid var(--line);border-top:2px solid var(--gold);font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;font-size:21px;font-weight:700;letter-spacing:.12em;white-space:pre-wrap;overflow-wrap:anywhere}' +
+ '.org-chair .org-names{max-width:300px;margin:0 auto}' +
+ '.org-chair .org-name{padding:20px 14px;font-size:30px;color:var(--red-deep);border-color:var(--gold-soft);border-top:4px solid var(--red)}' +
+ '.block-org .sec-head h2{font-size:clamp(24px,4vw,30px);letter-spacing:.14em}' +
+ '.block-org .sec-head h2::before,.block-org .sec-head h2::after{width:28px;flex-shrink:0}' +
+ '@media(max-width:600px){.block-org .sec-head h2{gap:10px}.block-org .sec-head h2::before,.block-org .sec-head h2::after{width:14px}.org-names{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.org-chair .org-names{grid-template-columns:1fr;max-width:240px}.org-group h3{font-size:19px}.org-name{font-size:20px}}\n';
 var library = [
  {style:'text',title:'文字段落',description:'公告、介紹與祈福文字，可搭配照片。',thumbnail:'☷'},
  {style:'gallery',title:'照片牆',description:'多張照片與說明，點圖可放大。',thumbnail:'▦'},
@@ -394,6 +489,7 @@ var library = [
  {style:'stele',title:'碑文',description:'保留可展開的全文與石碑照片。',thumbnail:'▥'},
  {style:'newtemple',title:'建新廟',description:'新廟照片、進度及捐款資料。',thumbnail:'⌂'},
  {style:'history',title:'沿革',description:'廟史文字與大事年表。',thumbnail:'⋮'},
+ {style:'org',title:'組織表',description:'職稱與姓名名單',thumbnail:'組'},
  {style:'deity',title:'奉祀神明',description:'神明照片、介紹及誕辰資料。',thumbnail:'❖'},
  {style:'hero',title:'主視覺',description:'大幅照片與網站標題。',thumbnail:'▣'},
  {style:'facts',title:'重點資訊',description:'並列呈現主神、創建與宮慶等資訊。',thumbnail:'▥'},
@@ -410,6 +506,25 @@ function kv(items){return '<dl class="kv">'+(items||[]).map(function(i){return '
 function pending(v){return v?esc(v):'<span class="pending">待廟方提供</span>';}
 function tel(v){return '<a href="tel:'+esc(String(v||'').replace(/[^0-9+]/g,''))+'">'+esc(v)+'</a>';}
 function donation(d){return '<div class="donate"><h3>'+esc(d.donationTitle||'護持捐款')+'</h3><dl class="kv"><dt>銀行</dt><dd>'+pending(d.bank)+'</dd><dt>戶名</dt><dd>'+pending(d.accountName)+'</dd><dt>帳號</dt><dd class="acct">'+pending(d.account)+'</dd><dt>現場</dt><dd>'+esc(d.note)+'</dd><dt>洽詢</dt><dd>'+tel(d.phone)+'</dd></dl></div>';}
+function orgNames(names){
+ return (Array.isArray(names)?names:String(names||'').split(/[、\r\n]+/)).map(function(name){
+  return String(name||'').trim().replace(/^(\S)[ \t\u3000]+(\S)$/, '$1\u3000$2');
+ }).filter(Boolean);
+}
+// Explicit upgrade for drafts/local rebuilds. Rendering an existing snapshot never adds blocks.
+function ensureOrg(list){
+ var blocks=clone(Array.isArray(list)?list:[]);
+ if(blocks.some(function(b){return b.style==='org';}))return blocks;
+ blocks=blocks.map(function(b,i){return {b:b,i:i};}).sort(function(a,b){return (Number(a.b.order||0)-Number(b.b.order||0))||a.i-b.i;}).map(function(x){return x.b;});
+ var history=blocks.findIndex(function(b){return b.style==='history';}),deity=blocks.findIndex(function(b){return b.style==='deity';});
+ var at=history>=0&&deity>history?history+1:blocks.findIndex(function(b){return b.style==='footer';});
+ if(at<0)at=blocks.length;
+ var org=clone(DEFAULTS.find(function(b){return b.style==='org';})),base=org.id,n=1;
+ while(blocks.some(function(b){return b.id===org.id;}))org.id=base+'-'+(++n);
+ var before=at?Number(blocks[at-1].order||0):null,after=at<blocks.length?Number(blocks[at].order||0):null;
+ org.order=before===null?(after===null?1:after-1):after===null?before+1:before+(after-before)/2;
+ blocks.splice(at,0,org);return blocks;
+}
 function gallery(ps,id){if(!ps.length)return '';return '<div class="gallery" id="'+id+'">'+ps.map(function(p,i){return '<figure'+(i>=12?' class="extra"':'')+'><a href="'+esc(p.src)+'" target="_blank" rel="noopener"><img src="'+esc(p.thumb||p.src)+'" alt="'+esc(p.alt||p.caption)+'" loading="lazy"></a>'+(p.caption?'<figcaption>'+esc(p.caption)+'</figcaption>':'')+'</figure>';}).join('')+'</div>'+(ps.length>12?'<p class="more"><button type="button" data-more="'+id+'">看更多照片</button></p>':'');}
 function applySettings(blocks,oldSettings,newSettings){
  oldSettings=oldSettings||{};newSettings=newSettings||{};
@@ -460,6 +575,7 @@ function createBlock(style){
  if(style==='stele')b.data={entries:[{title:'碑文標題',subtitle:'',body:'',photo:'',photoLabel:'石碑原貌（點圖放大）'}]};
  if(style==='donation')b.data={donationTitle:'護持捐款',bank:'',accountName:'',account:'',note:'',phone:''};
  if(style==='hero'||style==='facts'||style==='footer')b.navTitle='';
+ if(style==='org'){b.title=sample.title;b.subtitle=sample.subtitle;b.navTitle=sample.navTitle;}
  return b;
 }
 function render(c){
@@ -476,6 +592,12 @@ function render(c){
    case 'newtemple':
     var p=linked[0]||ps[0];inner='<div class="nt"><div class="nt-img">'+(p?'<img'+(!linked.length?' class="nt-static"':'')+' src="'+esc(p.src)+'" alt="'+esc(p.alt||p.caption)+'">':'')+'<div class="cap">'+esc(p&&(p.caption||p.alt))+'</div></div><div class="nt-txt">'+paragraphs(b.body)+(d.progress?'<p class="nt-progress"><b>目前進度：</b>'+esc(d.progress)+'</p>':'')+donation(d)+'</div></div>'+gallery(ps.slice(1),galleryId);break;
    case 'history':inner='<div class="hist"><div>'+paragraphs(b.body)+'</div><ol class="timeline">'+(d.timeline||[]).map(function(t){return '<li><b>'+esc(t.title)+'</b><span>'+esc(t.body)+'</span></li>';}).join('')+'</ol></div>'+gallery(ps,galleryId);break;
+   case 'org':
+    var groups=Array.isArray(d.groups)?d.groups:[];
+    groups=groups.filter(function(g){return g&&typeof g==='object';});
+    // Keep the chair first even when groups were rearranged in the editor.
+    groups=groups.filter(function(g){return String(g.title||'').trim()==='主任委員';}).concat(groups.filter(function(g){return String(g.title||'').trim()!=='主任委員';}));
+    inner=paragraphs(b.body)+'<div class="org-roster">'+groups.map(function(g){return '<div class="org-group'+(String(g.title||'').trim()==='主任委員'?' org-chair':'')+'"><h3>'+esc(g.title)+'</h3><ul class="org-names">'+orgNames(g.names).map(function(name){return '<li class="org-name">'+esc(name)+'</li>';}).join('')+'</ul></div>';}).join('')+'</div>'+gallery(ps,galleryId);break;
    case 'deity':var p=ps[0];inner='<div class="deity">'+(p?'<img src="'+esc(p.src)+'" alt="'+esc(p.alt||p.caption)+'" loading="lazy">':'')+'<div><h3>'+esc(d.name)+'</h3>'+paragraphs(b.body)+kv(d.items)+'</div></div>'+gallery(ps.slice(1),galleryId);break;
    case 'gallery':inner=(b.body?'<p class="note">'+esc(b.body).replace(/\n/g,'<br>')+'</p>':'')+gallery(ps.concat(linked),galleryId);break;
    case 'address':inner='<div class="visit"><a class="map maplink" href="https://www.google.com/maps/search/?api=1&amp;query='+encodeURIComponent(d.mapQuery||d.address||'')+'" target="_blank" rel="noopener"><span><b>📍 用 Google 地圖導航</b><br>'+esc(d.mapLabel||d.address)+'</span></a><div><ul><li><b>地址</b>：<span>'+esc(d.address)+'</span></li><li><b>管理委員會</b>：主任委員 <span>'+esc(d.chair)+'</span></li><li><b>電話</b>：'+tel(d.phone)+'</li><li><b>開放時間</b>：<span>'+esc(d.hours)+'</span></li><li><b>點燈服務</b>：<span>'+esc(d.lamp)+'</span> '+(d.lampNote?'<span class="pending">'+esc(d.lampNote)+'</span>':'')+'</li></ul>'+paragraphs(b.body)+'</div></div>'+gallery(ps,galleryId);break;
@@ -484,7 +606,8 @@ function render(c){
    case 'stele':inner=paragraphs(b.body)+(d.entries||[]).map(function(e){var p=url(e.photo);return '<details class="stele"><summary><span class="st-t">'+esc(e.title)+'</span><span class="st-w">'+esc(e.subtitle)+'</span></summary>'+(p?'<a class="st-photo" href="'+esc(p)+'" target="_blank" rel="noopener"><img src="'+esc(p)+'" alt="'+esc(e.title)+'石碑照片" loading="lazy"><span>'+esc(e.photoLabel)+'</span></a>':'')+'<pre>'+esc(e.body)+'</pre></details>';}).join('')+gallery(ps,galleryId);break;
    default:inner='<div class="block-text">'+paragraphs(b.body)+'</div>'+gallery(ps,galleryId);
   }
-  html+='<section id="'+id+'" class="block-'+esc(b.style)+'"'+(/^#[a-f0-9]{6}$/i.test(d.background||'')?' style="background:'+esc(d.background)+'"':'')+'><div class="wrap"><div class="sec-head"><h2>'+esc(b.title)+'</h2>'+(b.subtitle?'<p>'+esc(b.subtitle)+'</p>':'')+'</div>'+inner+'</div></section>';
+  var subtitle=b.style==='org'&&d.term?(b.subtitle?b.subtitle+'（'+d.term+'）':d.term):b.subtitle;
+  html+='<section id="'+id+'" class="block-'+esc(b.style)+'"'+(/^#[a-f0-9]{6}$/i.test(d.background||'')?' style="background:'+esc(d.background)+'"':'')+'><div class="wrap"><div class="sec-head"><h2>'+esc(b.title)+'</h2>'+(subtitle?'<p>'+esc(subtitle)+'</p>':'')+'</div>'+inner+'</div></section>';
  });
  return html;
 }
@@ -509,6 +632,6 @@ function renderDocument(c,options){
  var data=JSON.stringify(news).replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
  return '<!doctype html>\n<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><title>沙崙保安宮</title><meta name="description" content="桃園大園沙崙保安宮，奉祀保安廣澤尊王，民國三十六年創建。沿革、奉祀神明、廟景與石碑全文。">'+(base?'<base href="'+esc(base)+'">':'')+'<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>'+CSS.replace(/#newtemple/g,'.block-newtemple')+'</style></head><body>'+render(c)+'<script>('+bind.toString()+')('+data+');<\/script></body></html>\n';
 }
-return {library:library,defaults:clone(DEFAULTS),migrate:migrate,applySettings:applySettings,fromAdmin:fromAdmin,createBlock:createBlock,render:render,renderDocument:renderDocument};
+return {library:library,defaults:clone(DEFAULTS),migrate:migrate,ensureOrg:ensureOrg,orgNames:orgNames,applySettings:applySettings,fromAdmin:fromAdmin,createBlock:createBlock,render:render,renderDocument:renderDocument};
 })();
 if (typeof module !== 'undefined' && module.exports) module.exports = BlockRenderer;

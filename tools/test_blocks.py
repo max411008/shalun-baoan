@@ -102,6 +102,7 @@ const renderer = require(process.argv[1]);
 const request = JSON.parse(fs.readFileSync(0, 'utf8'));
 let result;
 if (request.action === 'migrate') result = renderer.migrate(request.content);
+else if (request.action === 'ensureOrg') result = renderer.ensureOrg(request.content);
 else if (request.action === 'fromAdmin') result = renderer.fromAdmin(request.content);
 else if (request.action === 'library') result = renderer.library;
 else if (request.action === 'create') result = renderer.createBlock(request.content.style);
@@ -135,6 +136,19 @@ def block(identifier, order, *, show=True, style="text", **fields):
     return result
 
 
+def backend_case(source):
+    """重用既有記憶體 GAS harness，在未初始化的試算表執行獨立升級情境。"""
+    harness = (TOOLS / "test_backend.js").read_text("utf-8")
+    marker = "try {\n  context.setup_();"
+    if harness.count(marker) != 1:
+        raise AssertionError("找不到唯一的 GAS harness 初始化入口")
+    completed = subprocess.run(["node", "-e", harness.split(marker, 1)[0] + source],
+                               cwd=TOOLS, text=True, capture_output=True, check=False)
+    if completed.returncode:
+        raise AssertionError(completed.stdout + completed.stderr)
+    return completed.stdout
+
+
 class BlocksTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -142,6 +156,12 @@ class BlocksTest(unittest.TestCase):
         cls.legacy_content = json.loads((FIXTURES / "legacy-content.json").read_text("utf-8"))
         cls.migrated = copy.deepcopy(cls.legacy_content)
         cls.migrated["blocks"] = renderer("migrate", cls.legacy_content)
+        cls.org_roster = json.loads((PROJECT / "materials-20261005" / "組織表_第八屆_職稱姓名.json").read_text("utf-8"))
+        cls.org_groups = []
+        for row in cls.org_roster:
+            if not cls.org_groups or cls.org_groups[-1]["title"] != row["title"]:
+                cls.org_groups.append({"title": row["title"], "names": []})
+            cls.org_groups[-1]["names"].append(re.sub(r"(?<=林) +(?=生$)", "\u3000", row["name"]))
         spec = importlib.util.spec_from_file_location("sync_admin_for_block_test", TOOLS / "sync_admin.py")
         cls.generator = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(cls.generator)
@@ -177,9 +197,17 @@ class BlocksTest(unittest.TestCase):
         self.assertEqual(nav_order, page_order)
 
     def test_03_migration_preserves_legacy_readable_text(self):
-        """(c) 遷移前後的可見文字與可展開全文一致（僅忽略空白）。"""
+        """(c) 新增組織表之外，遷移前後原文字與可展開全文一致。"""
         original = Document(self.legacy_html).body
         current = Document(self.generated(self.migrated)).body
+        added = {item["id"] for item in self.migrated["blocks"] if item["style"] == "org"}
+        def remove_org(node):
+            node.children = [child for child in node.children if not isinstance(child, Element)
+                             or (child.attrs.get("id") not in added and child.attrs.get("href") not in {"#" + key for key in added})]
+            for child in node.children:
+                if isinstance(child, Element):
+                    remove_org(child)
+        remove_org(current)
         for include_collapsed in (False, True):
             with self.subTest(include_collapsed_inscriptions=include_collapsed):
                 self.assertEqual(normalized(current.text(collapsed=include_collapsed)),
@@ -698,6 +726,171 @@ process.stdout.write('PASS preview navigation / gallery / news dialog');
             self.assertIn(failed, html)
             self.assertIn(invalid, html)
             self.assertIn(photos[2]["src"], html)
+
+    def test_23_org_defaults_render_all_29_names_by_title(self):
+        """組織表逐職稱顯示 29 人、任期與選單，主任獨立突出且二字姓名保留全形空格。"""
+        self.assertEqual(len(self.org_roster), 29)
+        self.assertTrue(all(set(row) == {"no", "title", "name"} for row in self.org_roster))
+        library = next(item for item in renderer("library", {}) if item["style"] == "org")
+        self.assertEqual(library["title"], "組織表")
+        self.assertEqual(library["description"], "職稱與姓名名單")
+        self.assertEqual(len(library["thumbnail"]), 1)
+        item = renderer("create", {"style": "org"})
+        self.assertEqual(item["title"], "管理委員會組織表")
+        self.assertEqual(item["subtitle"], "第八屆")
+        self.assertEqual(item["navTitle"], "組織")
+        self.assertTrue(item["show"])
+        self.assertEqual(item["data"], {"term": "任期 115年7月25日至119年7月24日", "groups": self.org_groups})
+        public = self.generated({"blocks": [item]})
+        self.assertEqual(public, renderer("preview", {"blocks": [item]}, assetBase=""))
+        doc = Document(public).body
+        section = doc.findall(id=item["id"])[0]
+        self.assertIn("管理委員會組織表", section.text())
+        self.assertIn("第八屆（任期 115年7月25日至119年7月24日）", section.text())
+        groups = [node for node in section.findall() if "org-group" in (node.attrs.get("class") or "").split()]
+        self.assertEqual(len(groups), len(self.org_groups))
+        for group, expected in zip(groups, self.org_groups):
+            self.assertEqual(group.findall("h3")[0].text().strip(), expected["title"])
+            cards = [node for node in group.findall("li") if "org-name" in (node.attrs.get("class") or "").split()]
+            self.assertEqual([node.text().strip() for node in cards], expected["names"])
+        chairs = [node for node in groups if "org-chair" in (node.attrs.get("class") or "").split()]
+        self.assertEqual(len(chairs), 1)
+        self.assertIn("駱文章", chairs[0].text())
+        self.assertIn("林\u3000生", public)
+        self.assertNotIn("林  生", public)
+        self.assertEqual(doc.findall("a", href="#" + item["id"])[0].text().strip(), "組織")
+        item["data"] = {"term": "任期自訂文字", "groups": [{"title": "自訂職稱", "names": ["王小明", "陳小美"]}]}
+        edited = Document(self.generated({"blocks": [item]})).body.text()
+        for value in ("任期自訂文字", "自訂職稱", "王小明", "陳小美"):
+            self.assertIn(value, edited)
+        self.assertNotIn("駱文章", edited)
+
+    def test_24_org_outputs_contain_only_term_titles_and_names(self):
+        """組織表公開 JSON、GAS 基準與 HTML 不含個人的住址、電話或性別欄位。"""
+        local = json.loads((ROOT / "content.json").read_text("utf-8"))
+        gas_defaults = json.loads((PROJECT / "admin" / "block_defaults.html").read_text("utf-8"))
+        for source, content in (("遷移預設", self.migrated), ("本機 content.json", local), ("GAS 預設", gas_defaults)):
+            with self.subTest(source=source):
+                items = [item for item in content["blocks"] if item["style"] == "org"]
+                self.assertEqual(len(items), 1)
+                item = items[0]
+                self.assertEqual(set(item["data"]), {"term", "groups"})
+                self.assertEqual(item["data"]["groups"], self.org_groups)
+                self.assertTrue(all(set(group) == {"title", "names"} for group in item["data"]["groups"]))
+                serialized = json.dumps(item, ensure_ascii=False)
+                for private_field in ("住址", "電話", "性別", '"address"', '"phone"', '"gender"', '"sex"'):
+                    self.assertNotIn(private_field, serialized)
+                # 僅以虛構標記測試拒絕顯示額外個資欄位，不讀取原始含個資的名冊。
+                dirty = copy.deepcopy(item)
+                for private_field in ("address", "phone", "gender"):
+                    dirty["data"][private_field] = "PRIVATE_" + private_field.upper()
+                    dirty["data"]["groups"][0][private_field] = "PRIVATE_GROUP_" + private_field.upper()
+                rendered = self.generated({"blocks": [dirty]})
+                self.assertNotIn("PRIVATE_", rendered)
+                section = Document(rendered).body.findall(id=item["id"])[0]
+                for private_field in ("住址", "電話", "性別"):
+                    self.assertNotIn(private_field, section.text())
+                self.assertNotRegex(section.text(), r"0\d{1,3}[- ]\d{3,4}[- ]\d{3,4}")
+        published_doc = Document((ROOT / "index.html").read_text("utf-8")).body
+        local_org = next(item for item in local["blocks"] if item["style"] == "org")
+        published_section = published_doc.findall(id=local_org["id"])[0]
+        cards = [node for node in published_section.findall("li") if "org-name" in (node.attrs.get("class") or "").split()]
+        self.assertEqual(len(cards), 29, "離線重建正式首頁也須已帶入完整名單")
+        for private_field in ("住址", "電話", "性別"):
+            self.assertNotIn(private_field, published_section.text())
+
+    def test_25_org_insertion_preserves_existing_blocks_and_falls_back_before_footer(self):
+        """補缺僅插入一份組織表，沿革後神明前；缺對應區塊時放頁尾前。"""
+        migrated = self.migrated["blocks"]
+        styles = [item["style"] for item in sorted(migrated, key=lambda item: item["order"])]
+        self.assertEqual(styles.count("org"), 1)
+        self.assertLess(styles.index("history"), styles.index("org"))
+        self.assertLess(styles.index("org"), styles.index("deity"))
+        scenarios = ([block("footer", 90, style="footer"), block("custom", 10)],
+                     [block("deity", 60, style="deity"), block("history", 40, style="history"), block("footer", 90, style="footer")])
+        for originals in scenarios:
+            with self.subTest(styles=[item["style"] for item in originals]):
+                upgraded = renderer("ensureOrg", originals)
+                self.assertEqual([item for item in upgraded if item["style"] != "org"],
+                                 sorted(originals, key=lambda item: item["order"]))
+                order = [item["style"] for item in upgraded]
+                self.assertEqual(order.count("org"), 1)
+                self.assertLess(order.index("org"), order.index("footer"))
+                if "history" in order:
+                    self.assertEqual(order.index("org"), order.index("history") + 1)
+                    self.assertLess(order.index("org"), order.index("deity"))
+                self.assertEqual(renderer("ensureOrg", upgraded), upgraded)
+        self.assertEqual(renderer("migrate", {"blocks": scenarios[0]}), scenarios[0],
+                         "渲染既有正式快照不能順便升級其積木")
+        customized = renderer("create", {"style": "org"})
+        customized.update(title="廟方自訂的組織表", show=False, order=7,
+                          data={"term": "自訂任期", "groups": [{"title": "自訂職稱", "names": ["自訂姓名"]}]})
+        existing = [block("footer", 90, style="footer"), customized]
+        self.assertEqual(renderer("ensureOrg", existing), existing,
+                         "已有 org 時標題、隱藏狀態、姓名、任期及原陣列順序完整保留")
+
+    def test_26_org_first_sheet_migration_and_existing_draft_upgrade_are_safe(self):
+        """真正 GAS 首遷帶組織表；既有表只補草稿且保留正式版本與廟方修改，可重入。"""
+        first = backend_case(r"""
+assert.equal(sheets.has('積木'),false,'情境起始須為沒有積木分頁的舊表');
+const first=clone(context.getData());
+assert.equal(first.blocks.filter(block=>block.style==='org').length,1,'首次遷移草稿自動帶入組織表');
+assert.equal(published().blocks.filter(block=>block.style==='org').length,1,'首次正式基準亦帶入組織表');
+const counts=Object.fromEntries([...sheets].map(([name,sheet])=>[name,sheet.rows.length]));
+const again=clone(context.getData());
+assert.equal(again.draftRevision,first.draftRevision);
+for(const [name,count] of Object.entries(counts))assert.equal(sheets.get(name).rows.length,count,name+'重開不能重寫');
+assert.deepEqual(forbiddenCalls,[]);
+process.stdout.write('PASS 首次遷移自動帶組織表且重開不重複');
+""")
+        self.assertIn("PASS", first)
+        upgrade = backend_case(r"""
+const old=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/legacy-content.json'),'utf8'));
+old.blocks=clone(context.BlockRenderer.migrate(old)).filter(block=>block.style!=='org');
+old.blocks[0].title='廟方已改的主視覺';
+old.blocks.find(block=>block.style==='deity').show=false;
+old.blocks.find(block=>block.style==='history').body='廟方自行編輯的沿革';
+old.settings.custom_org_upgrade='保留自訂設定';
+old.news=[{title:'尚未發佈的新消息',body:'保留消息內文',show:false}];
+const official=clone(old);official.blocks[0].title='既有正式主視覺';
+const version='pre-org-publication',revision='pre-org-draft';
+official.version=version;
+sheets.set('積木',new Sheet('積木',[clone(context.BLOCK_HEADERS)]));
+sheets.set('_draft',new Sheet('_draft',[['version','index','json']]));
+sheets.set('_published',new Sheet('_published',[['version','index','json']]));
+sheets.set('_meta',new Sheet('_meta',[['version','draftRevision'],[version,revision]]));
+context.appendDraft_(revision,old);
+context.appendSnapshot_('_published',version,official);
+const before=clone(context.readDraft_(context.pointers_()));
+const officialBefore=clone(published()),publicRows=clone(sheets.get('_published').rows);
+const sourceRows=Object.fromEntries(['設定','最新消息','照片'].map(name=>[name,clone(sheets.get(name).rows)]));
+const after=clone(context.getData());
+assert.equal(after.blocks.filter(block=>block.style==='org').length,1);
+assert.notEqual(after.draftRevision,revision,'補缺產生新的草稿版本');
+assert.deepEqual(after.blocks.filter(block=>block.style!=='org'),before.blocks,'所有既有積木欄位含順序完整保留');
+for(const key of ['settings','news','photos'])assert.deepEqual(after.content[key],before[key],key+'不可覆蓋廟方內容');
+assert.equal(metaVersion(),version,'不動正式指標');
+assert.deepEqual(published(),officialBefore,'不動既有正式快照內容');
+assert.deepEqual(sheets.get('_published').rows,publicRows,'不可追加或改寫正式快照');
+for(const [name,rows] of Object.entries(sourceRows))assert.deepEqual(sheets.get(name).rows.slice(0,rows.length),rows,name+'舊列完整保留');
+const counts=Object.fromEntries([...sheets].map(([name,sheet])=>[name,sheet.rows.length]));
+const again=clone(context.getData());
+assert.equal(again.draftRevision,after.draftRevision,'重跑不再新增草稿');
+for(const [name,count] of Object.entries(counts))assert.equal(sheets.get(name).rows.length,count,name+'重跑不增加列');
+// 完成一次升級後，廟方自行改名／隱藏或刪除皆應受到尊重。
+const changed=payload(again),org=changed.blocks.find(block=>block.style==='org');
+org.title='廟方自行修改的組織表';org.show=false;org.data.groups[0].names=['廟方更新姓名'];
+context.saveDraft(changed,again.draftRevision);
+const kept=clone(context.getData());
+assert.deepEqual(kept.blocks.find(block=>block.style==='org'),org,'既有組織表不能被預設覆寫');
+const removed=payload(kept);removed.blocks=removed.blocks.filter(block=>block.style!=='org');
+context.saveDraft(removed,kept.draftRevision);
+assert.equal(context.getData().blocks.some(block=>block.style==='org'),false,'廟方刻意刪除後不重新補回');
+assert.deepEqual(sheets.get('_published').rows,publicRows);
+assert.deepEqual(forbiddenCalls,[]);
+process.stdout.write('PASS 舊草稿只補缺一次；正式快照與廟方自訂內容完整保留');
+""")
+        self.assertIn("PASS", upgrade)
 
 
 if __name__ == "__main__":
