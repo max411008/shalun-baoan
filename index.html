@@ -1,14 +1,5 @@
 <!doctype html>
-<html lang="zh-Hant">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="light only">
-<title>沙崙保安宮</title>
-<meta name="description" content="桃園大園沙崙保安宮，奉祀保安廣澤尊王，民國三十六年創建。沿革、奉祀神明、廟景與石碑全文。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap">
-<style>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><title>沙崙保安宮</title><meta name="description" content="桃園大園沙崙保安宮，奉祀保安廣澤尊王，民國三十六年創建。沿革、奉祀神明、廟景與石碑全文。"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap"><style>
   :root{
     color-scheme:light;
     --bg:#FFFFFF; --bg-2:#FBF7F0; --ink:#1A1714; --ink-2:#3D3732; --muted:#857B70;
@@ -118,7 +109,7 @@
   @media (max-width:760px){.visit{grid-template-columns:1fr}}
 
   /* 建新廟專區：置頂、金框大卡 */
-  #newtemple{background:linear-gradient(180deg,#FFF9EF,#FFFFFF);padding-top:64px}
+  .block-newtemple{background:linear-gradient(180deg,#FFF9EF,#FFFFFF);padding-top:64px}
   .nt{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:stretch}
   .nt-img{position:relative;min-height:320px;background:var(--bg-2);border:1px solid var(--gold);box-shadow:0 0 0 6px #fff,0 0 0 7px var(--gold-soft);display:grid;place-items:center;text-align:center;color:var(--muted);font-size:15px}
   .nt-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -165,153 +156,9 @@
   footer{background:var(--red-deep);color:#F8EBD3;padding:36px 0 44px;font-size:14.5px;border-top:4px solid var(--gold)}
   footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   footer .fn{font-family:"Noto Serif TC",serif;font-size:20px;font-weight:900;letter-spacing:.2em;color:#fff;display:block;margin-bottom:4px}
-</style>
-</head>
-<body>
 
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="#"><span class="seal">保</span><span class="name">沙崙保安宮</span></a>
-    <nav>
-      <a href="#newtemple" data-nav="newtemple">建新廟</a><a href="#news" data-nav="news" hidden>消息</a><a href="#history">沿革</a><a href="#deity">神明</a><a href="#gallery">廟景</a><a href="#now">紅壇</a><a href="#steles">石碑</a><a href="#visit">參拜</a>
-    </nav>
-  </div>
-</header>
-
-<div class="hero">
-  <img src="img/p24.jpg" alt="沙崙保安宮廟貌">
-  <div class="t">
-    <div class="plaque-h">沙崙保安宮</div>
-    <div class="sub">桃園大園沙崙 · 主祀保安廣澤尊王 · 民國三十六年創建</div>
-  </div>
-</div>
-<div class="wrap">
-  <div class="facts">
-    <div class="fact"><b>主神</b><span>保安廣澤尊王</span></div>
-    <div class="fact"><b>創建</b><span>民國三十六年（1947）</span></div>
-    <div class="fact"><b>尊王誕辰</b><span>農曆二月廿二日</span></div>
-    <div class="fact"><b>每年宮慶</b><span>農曆八月廿一日</span></div>
-  </div>
-</div>
-
-<section id="newtemple">
-  <div class="wrap">
-    <div class="sec-head"><h2>興建新廟</h2><p>誠邀十方信眾共襄盛舉</p></div>
-    <div class="nt">
-      <div class="nt-img">
-        <img id="nt-noimg" class="nt-static" src="img/newtemple.jpg" alt="沙崙保安宮新廟完工示意圖">
-        <div class="cap">沙崙保安宮新廟　完工示意圖</div>
-      </div>
-      <div class="nt-txt">
-        <p id="nt-intro">舊廟因桃園航空城計畫列入徵收、將來拆除，管理委員會已在新廟預定地搭建臨時紅壇，暫奉保安廣澤尊王與眾神。為讓尊王早日安座新殿，保安宮正籌建新廟，懇請各方信士大德發心護持，共成功德。</p>
-        <div class="donate">
-          <h3>護持捐款</h3>
-          <dl class="kv">
-            <dt>銀行</dt><dd data-f="nt_bank"><span class="pending">待廟方提供</span></dd>
-            <dt>戶名</dt><dd data-f="nt_name"><span class="pending">待廟方提供</span></dd>
-            <dt>帳號</dt><dd class="acct" data-f="nt_account"><span class="pending">待廟方提供</span></dd>
-            <dt>現場</dt><dd data-f="nt_note">亦可至臨時紅壇（中央路 418 之一號）親自添緣</dd>
-            <dt>洽詢</dt><dd><a href="tel:033836940">03-383-6940</a></dd>
-          </dl>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="news" hidden>
-  <div class="wrap">
-    <div class="sec-head"><h2>最新消息</h2><p>法會活動與廟務公告</p></div>
-    <div class="news-list" id="news-list"></div>
-    <div class="gallery" id="g-活動"></div>
-    <p class="more"><button type="button" data-more="g-活動" hidden>看更多照片</button></p>
-  </div>
-</section>
-
-<section id="history">
-  <div class="wrap">
-    <div class="sec-head"><h2>沿革</h2><p>依廟內四方石碑整理</p></div>
-    <div class="hist">
-      <div>
-        <p>沙崙、竹圍、海口、後厝、三石、菓林一帶的先民，自古崇信保安廣澤尊王，結為「聖王公會」，按期輪值祭祀。民國三十六年正月，地方士紳陳全福、陳土金發起募捐，陳萬金捐出約三十坪土地，創建廟堂一殿，號曰「保安宮」。</p>
-        <p>隨地方繁榮、舊廟狹小陳舊，民國六十五年正月由陳朝和、蔡嵩峯、許榮源、簡連鳳等信士倡議遷址擴建，經信徒大會贊同、組成重建委員會；同年興建後殿，六十六年前殿興工，六十八年完工。</p>
-        <p>民國七十七年配合慶成建醮，興建歡迎牌樓、鐘鼓樓，八十一年舉行圓醮大典。九十一年起再以圓醮與拜斗會結餘及信眾油香，完成屋頂剪黏翻新、全殿木雕等八大項整建。九十六年更向法院標購一七六三地號土地七百餘坪，為保安宮留下長遠的發展空間。</p>
-        <p>近年因桃園航空城計畫，舊廟列入徵收、將來拆除（目前尚未拆）。管理委員會已在新廟預定地搭建臨時紅壇，暫時安奉尊王與眾神；新廟落成後，神明將遷入新殿祭祀。</p>
-      </div>
-      <ol class="timeline">
-        <li><b>民國 36 年（1947）</b><span>陳全福、陳土金發起，陳萬金捐地約 30 坪，創建廟堂一殿</span></li>
-        <li><b>民國 65 年（1976）</b><span>倡議遷址擴建，組重建委員會；興建後殿</span></li>
-        <li><b>民國 66–68 年（1977–79）</b><span>前殿興工，六十八年完工</span></li>
-        <li><b>民國 77 年（1988）</b><span>慶成建醮；興建歡迎牌樓、鐘鼓樓，增購廟地</span></li>
-        <li><b>民國 81 年（1992）</b><span>十一月舉行圓醮大典，續建金亭</span></li>
-        <li><b>民國 91–93 年（2002–04）</b><span>八大項整建，總經費一千五百二十餘萬元</span></li>
-        <li><b>民國 96 年（2007）</b><span>標購沙崙小段 1763 地號 2,388 m²（722.3 坪）</span></li>
-        <li><b>現況</b><span>航空城徵收，舊廟將拆除；神明暫奉於新廟預定地上的臨時紅壇，待新廟落成遷入</span></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<section id="deity">
-  <div class="wrap">
-    <div class="sec-head"><h2>奉祀神明</h2></div>
-    <div class="deity">
-      <img src="img/p29.jpg" alt="保安廣澤尊王" loading="lazy">
-      <div>
-        <h3>保安廣澤尊王</h3>
-        <p>尊王大忠大孝、至仁至勇，十八歲即顯武德威赫，以仁政保境安民。歷代敕封「保安廣澤尊王」，道號「九天考輔保安廣澤尊王」，民間敬稱「聖王公」、「郭聖王」。</p>
-        <p>據廟內〈保安宮沿革誌〉記載，尊王降誕於歲次乙未二月廿二日，飛昇於歲次丙午八月廿二日，得道於漳州鳳山寺。</p>
-        <dl class="kv">
-          <dt>誕辰</dt><dd>農曆二月廿二日</dd>
-          <dt>飛昇</dt><dd>農曆八月廿二日</dd>
-          <dt>宮慶</dt><dd>每年農曆八月廿一日</dd>
-          <dt>信仰圈</dt><dd>沙崙、竹圍、海口、後厝、三石、菓林（聖王公會）</dd>
-          <dt>陪祀神明</dt><dd>本宮天上聖母、奉天宮天上聖母、朝天宮天上聖母、六興宮天上聖母、天后宮天上聖母、南瑤宮天上聖母、開漳聖王、關聖帝君、中壇元帥、南斗星君、北斗星君、玄天上帝、神農大帝、觀世音菩薩、福德正神</dd>
-        </dl>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="gallery">
-  <div class="wrap">
-    <div class="sec-head"><h2>廟景</h2></div>
-    <div class="gallery" id="g-廟景">
-<figure><img src="img/p24.jpg" alt="廟貌正面" loading="lazy"><figcaption>廟貌正面</figcaption></figure>
-<figure><img src="img/p26.jpg" alt="廟埕與兩側樓閣" loading="lazy"><figcaption>廟埕與兩側樓閣</figcaption></figure>
-<figure><img src="img/p27.jpg" alt="廟埕樓閣" loading="lazy"><figcaption>廟埕樓閣</figcaption></figure>
-<figure><img src="img/p28.jpg" alt="正殿　廣澤尊王匾" loading="lazy"><figcaption>正殿　廣澤尊王匾</figcaption></figure>
-<figure><img src="img/p29.jpg" alt="保安廣澤尊王" loading="lazy"><figcaption>保安廣澤尊王</figcaption></figure>
-<figure><img src="img/p30.jpg" alt="正殿神龕" loading="lazy"><figcaption>正殿神龕</figcaption></figure>
-<figure><img src="img/p31.jpg" alt="法會供桌" loading="lazy"><figcaption>法會供桌</figcaption></figure>
-<figure><img src="img/p37.jpg" alt="歡迎牌樓（民國七十七年興建）" loading="lazy"><figcaption>歡迎牌樓（民國七十七年興建）</figcaption></figure>
-<figure><img src="img/p43.jpg" alt="「金蘭之光」匾" loading="lazy"><figcaption>「金蘭之光」匾</figcaption></figure>
-<figure><img src="img/p42.jpg" alt="台灣保安廣澤尊王金蘭會第七次聯誼會" loading="lazy"><figcaption>台灣保安廣澤尊王金蘭會第七次聯誼會</figcaption></figure>
-<figure><img src="img/p44.jpg" alt="法會現場" loading="lazy"><figcaption>法會現場</figcaption></figure>
-<figure><img src="img/p33.jpg" alt="信眾齊聚" loading="lazy"><figcaption>信眾齊聚</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<section id="now">
-  <div class="wrap">
-    <div class="sec-head"><h2>臨時紅壇</h2><p>新廟興建期間，請至紅壇參拜</p></div>
-    <p class="note">舊廟因航空城徵收將拆除，神明現暫奉於新廟預定地上的臨時紅壇（中央路 418 之一號），待新廟蓋好後再遷入新殿。</p>
-    <div class="gallery">
-<figure><img src="img/p06.jpg" alt="臨時紅壇外觀" loading="lazy"><figcaption>臨時紅壇外觀</figcaption></figure>
-<figure><img src="img/p04.jpg" alt="紅壇入口與香爐" loading="lazy"><figcaption>紅壇入口與香爐</figcaption></figure>
-<figure><img src="img/p19.jpg" alt="紅壇內暫奉神明" loading="lazy"><figcaption>紅壇內暫奉神明</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<section id="steles">
-  <div class="wrap">
-    <div class="sec-head"><h2>石碑全文</h2><p>依原碑逐字轉錄；□ 為碑面風化、無法辨識之字。點標題展開。</p></div>
-<details class="stele">
-  <summary><span class="st-t">沙崙保安宮沿革</span><span class="st-w">碑面無立碑年月（記至民國六十八年完工）</span></summary>
-  <a class="st-photo" href="img/stele_p39.jpg" target="_blank" rel="noopener"><img src="img/stele_p39.jpg" alt="沙崙保安宮沿革石碑照片" loading="lazy"><span>石碑原貌（點圖放大）</span></a>
-  <pre>常思先賢格言 公益眾事 為善最樂 鑑諸本保安宮著蹟有年 古風存焉 懿哉
+.top nav{overflow-x:auto;max-width:100%}.top .wrap{min-width:0}.top nav a{white-space:nowrap}.block-text p{white-space:pre-line}.block-text{max-width:860px;margin:auto}
+</style></head><body><header class="top"><div class="wrap"><a class="brand" href="#"><span class="seal">保</span><span class="name">沙崙保安宮</span></a><nav aria-label="頁面導覽"><a href="#newtemple" data-nav="newtemple">建新廟</a><a href="#history" data-nav="history">沿革</a><a href="#deity" data-nav="deity">神明</a><a href="#gallery" data-nav="gallery">廟景</a><a href="#now" data-nav="now">紅壇</a><a href="#steles" data-nav="steles">石碑</a><a href="#visit" data-nav="visit">參拜</a></nav></div></header><div class="hero" id="hero"><img src="img/p24.jpg" alt="沙崙保安宮廟貌"><div class="t"><div class="plaque-h">沙崙保安宮</div><div class="sub">桃園大園沙崙 · 主祀保安廣澤尊王 · 民國三十六年創建</div></div></div><div class="wrap" id="facts"><div class="facts"><div class="fact"><b>主神</b><span>保安廣澤尊王</span></div><div class="fact"><b>創建</b><span>民國三十六年（1947）</span></div><div class="fact"><b>尊王誕辰</b><span>農曆二月廿二日</span></div><div class="fact"><b>每年宮慶</b><span>農曆八月廿一日</span></div></div></div><section id="newtemple" class="block-newtemple"><div class="wrap"><div class="sec-head"><h2>興建新廟</h2><p>誠邀十方信眾共襄盛舉</p></div><div class="nt"><div class="nt-img"><img class="nt-static" src="img/newtemple.jpg" alt="沙崙保安宮新廟完工示意圖"><div class="cap">沙崙保安宮新廟　完工示意圖</div></div><div class="nt-txt"><p>舊廟因桃園航空城計畫列入徵收、將來拆除，管理委員會已在新廟預定地搭建臨時紅壇，暫奉保安廣澤尊王與眾神。為讓尊王早日安座新殿，保安宮正籌建新廟，懇請各方信士大德發心護持，共成功德。</p><div class="donate"><h3>護持捐款</h3><dl class="kv"><dt>銀行</dt><dd>聯邦銀行（代號 803）大園分行</dd><dt>戶名</dt><dd>保安宮</dd><dt>帳號</dt><dd class="acct">038-10-800231-8</dd><dt>現場</dt><dd>亦可至臨時紅壇（中央路 418 之一號）親自添緣</dd><dt>洽詢</dt><dd><a href="tel:033836940">03-383-6940</a></dd></dl></div></div></div></div></section><section id="history" class="block-history" style="background:#FFFFFF"><div class="wrap"><div class="sec-head"><h2>沿革</h2><p>依廟內四方石碑整理</p></div><div class="hist"><div><p>沙崙、竹圍、海口、後厝、三石、菓林一帶的先民，自古崇信保安廣澤尊王，結為「聖王公會」，按期輪值祭祀。民國三十六年正月，地方士紳陳全福、陳土金發起募捐，陳萬金捐出約三十坪土地，創建廟堂一殿，號曰「保安宮」。</p><p>隨地方繁榮、舊廟狹小陳舊，民國六十五年正月由陳朝和、蔡嵩峯、許榮源、簡連鳳等信士倡議遷址擴建，經信徒大會贊同、組成重建委員會；同年興建後殿，六十六年前殿興工，六十八年完工。</p><p>民國七十七年配合慶成建醮，興建歡迎牌樓、鐘鼓樓，八十一年舉行圓醮大典。九十一年起再以圓醮與拜斗會結餘及信眾油香，完成屋頂剪黏翻新、全殿木雕等八大項整建。九十六年更向法院標購一七六三地號土地七百餘坪，為保安宮留下長遠的發展空間。</p><p>近年因桃園航空城計畫，舊廟列入徵收、將來拆除（目前尚未拆）。管理委員會已在新廟預定地搭建臨時紅壇，暫時安奉尊王與眾神；新廟落成後，神明將遷入新殿祭祀。</p></div><ol class="timeline"><li><b>民國 36 年（1947）</b><span>陳全福、陳土金發起，陳萬金捐地約 30 坪，創建廟堂一殿</span></li><li><b>民國 65 年（1976）</b><span>倡議遷址擴建，組重建委員會；興建後殿</span></li><li><b>民國 66–68 年（1977–79）</b><span>前殿興工，六十八年完工</span></li><li><b>民國 77 年（1988）</b><span>慶成建醮；興建歡迎牌樓、鐘鼓樓，增購廟地</span></li><li><b>民國 81 年（1992）</b><span>十一月舉行圓醮大典，續建金亭</span></li><li><b>民國 91–93 年（2002–04）</b><span>八大項整建，總經費一千五百二十餘萬元</span></li><li><b>民國 96 年（2007）</b><span>標購沙崙小段 1763 地號 2,388 m²（722.3 坪）</span></li><li><b>現況</b><span>航空城徵收，舊廟將拆除；神明暫奉於新廟預定地上的臨時紅壇，待新廟落成遷入</span></li></ol></div></div></section><section id="deity" class="block-deity" style="background:#FBF7F0"><div class="wrap"><div class="sec-head"><h2>奉祀神明</h2></div><div class="deity"><img src="img/p29.jpg" alt="保安廣澤尊王" loading="lazy"><div><h3>保安廣澤尊王</h3><p>尊王大忠大孝、至仁至勇，十八歲即顯武德威赫，以仁政保境安民。歷代敕封「保安廣澤尊王」，道號「九天考輔保安廣澤尊王」，民間敬稱「聖王公」、「郭聖王」。</p><p>據廟內〈保安宮沿革誌〉記載，尊王降誕於歲次乙未二月廿二日，飛昇於歲次丙午八月廿二日，得道於漳州鳳山寺。</p><dl class="kv"><dt>誕辰</dt><dd>農曆二月廿二日</dd><dt>飛昇</dt><dd>農曆八月廿二日</dd><dt>宮慶</dt><dd>每年農曆八月廿一日</dd><dt>信仰圈</dt><dd>沙崙、竹圍、海口、後厝、三石、菓林（聖王公會）</dd><dt>陪祀神明</dt><dd>本宮天上聖母、奉天宮天上聖母、朝天宮天上聖母、六興宮天上聖母、天后宮天上聖母、南瑤宮天上聖母、開漳聖王、關聖帝君、中壇元帥、南斗星君、北斗星君、玄天上帝、神農大帝、觀世音菩薩、福德正神</dd></dl></div></div></div></section><section id="gallery" class="block-gallery" style="background:#FFFFFF"><div class="wrap"><div class="sec-head"><h2>廟景</h2></div><div class="gallery" id="g-gallery"><figure><a href="img/p24.jpg" target="_blank" rel="noopener"><img src="img/p24.jpg" alt="廟貌正面" loading="lazy"></a><figcaption>廟貌正面</figcaption></figure><figure><a href="img/p26.jpg" target="_blank" rel="noopener"><img src="img/p26.jpg" alt="廟埕與兩側樓閣" loading="lazy"></a><figcaption>廟埕與兩側樓閣</figcaption></figure><figure><a href="img/p27.jpg" target="_blank" rel="noopener"><img src="img/p27.jpg" alt="廟埕樓閣" loading="lazy"></a><figcaption>廟埕樓閣</figcaption></figure><figure><a href="img/p28.jpg" target="_blank" rel="noopener"><img src="img/p28.jpg" alt="正殿　廣澤尊王匾" loading="lazy"></a><figcaption>正殿　廣澤尊王匾</figcaption></figure><figure><a href="img/p29.jpg" target="_blank" rel="noopener"><img src="img/p29.jpg" alt="保安廣澤尊王" loading="lazy"></a><figcaption>保安廣澤尊王</figcaption></figure><figure><a href="img/p30.jpg" target="_blank" rel="noopener"><img src="img/p30.jpg" alt="正殿神龕" loading="lazy"></a><figcaption>正殿神龕</figcaption></figure><figure><a href="img/p31.jpg" target="_blank" rel="noopener"><img src="img/p31.jpg" alt="法會供桌" loading="lazy"></a><figcaption>法會供桌</figcaption></figure><figure><a href="img/p37.jpg" target="_blank" rel="noopener"><img src="img/p37.jpg" alt="歡迎牌樓（民國七十七年興建）" loading="lazy"></a><figcaption>歡迎牌樓（民國七十七年興建）</figcaption></figure><figure><a href="img/p43.jpg" target="_blank" rel="noopener"><img src="img/p43.jpg" alt="「金蘭之光」匾" loading="lazy"></a><figcaption>「金蘭之光」匾</figcaption></figure><figure><a href="img/p42.jpg" target="_blank" rel="noopener"><img src="img/p42.jpg" alt="台灣保安廣澤尊王金蘭會第七次聯誼會" loading="lazy"></a><figcaption>台灣保安廣澤尊王金蘭會第七次聯誼會</figcaption></figure><figure><a href="img/p44.jpg" target="_blank" rel="noopener"><img src="img/p44.jpg" alt="法會現場" loading="lazy"></a><figcaption>法會現場</figcaption></figure><figure><a href="img/p33.jpg" target="_blank" rel="noopener"><img src="img/p33.jpg" alt="信眾齊聚" loading="lazy"></a><figcaption>信眾齊聚</figcaption></figure></div></div></section><section id="now" class="block-gallery" style="background:#FBF7F0"><div class="wrap"><div class="sec-head"><h2>臨時紅壇</h2><p>新廟興建期間，請至紅壇參拜</p></div><p class="note">舊廟因航空城徵收將拆除，神明現暫奉於新廟預定地上的臨時紅壇（中央路 418 之一號），待新廟蓋好後再遷入新殿。</p><div class="gallery" id="g-now"><figure><a href="img/p06.jpg" target="_blank" rel="noopener"><img src="img/p06.jpg" alt="臨時紅壇外觀" loading="lazy"></a><figcaption>臨時紅壇外觀</figcaption></figure><figure><a href="img/p04.jpg" target="_blank" rel="noopener"><img src="img/p04.jpg" alt="紅壇入口與香爐" loading="lazy"></a><figcaption>紅壇入口與香爐</figcaption></figure><figure><a href="img/p19.jpg" target="_blank" rel="noopener"><img src="img/p19.jpg" alt="紅壇內暫奉神明" loading="lazy"></a><figcaption>紅壇內暫奉神明</figcaption></figure></div></div></section><section id="steles" class="block-stele" style="background:#FFFFFF"><div class="wrap"><div class="sec-head"><h2>石碑全文</h2><p>依原碑逐字轉錄；□ 為碑面風化、無法辨識之字。點標題展開。</p></div><details class="stele"><summary><span class="st-t">沙崙保安宮沿革</span><span class="st-w">碑面無立碑年月（記至民國六十八年完工）</span></summary><a class="st-photo" href="img/stele_p39.jpg" target="_blank" rel="noopener"><img src="img/stele_p39.jpg" alt="沙崙保安宮沿革石碑照片" loading="lazy"><span>石碑原貌（點圖放大）</span></a><pre>常思先賢格言 公益眾事 為善最樂 鑑諸本保安宮著蹟有年 古風存焉 懿哉
 先民冒險犯難 渡台開基創業 定居於桃園縣大園鄉沙崙村 村民為求神靈保佑
 合境平安 國泰民安 風調雨順 遂集資建廟恭奉保安尊王 以便日夜膜拜 至
 今有三十餘年 因年久失修 日漸陳舊 而今時代進步 百業繁榮 人口昌盛
@@ -336,12 +183,7 @@
 陳　財 莊清通 陳世輝 謝照得 褚福明
 謹識
 
-樂捐芳名（碑面左半褪色嚴重，照片解析度不足，金額與人名多數無法辨識，暫不收錄）</pre>
-</details>
-<details class="stele">
-  <summary><span class="st-t">保安宮沿革誌</span><span class="st-w">碑面無立碑年月</span></summary>
-  <a class="st-photo" href="img/stele_p40.jpg" target="_blank" rel="noopener"><img src="img/stele_p40.jpg" alt="保安宮沿革誌石碑照片" loading="lazy"><span>石碑原貌（點圖放大）</span></a>
-  <pre>桃園縣大園鄉沙崙村保安宮奉祀保安廣澤尊王為主神 嘗思所崇大忠大
+樂捐芳名（碑面左半褪色嚴重，照片解析度不足，金額與人名多數無法辨識，暫不收錄）</pre></details><details class="stele"><summary><span class="st-t">保安宮沿革誌</span><span class="st-w">碑面無立碑年月</span></summary><a class="st-photo" href="img/stele_p40.jpg" target="_blank" rel="noopener"><img src="img/stele_p40.jpg" alt="保安宮沿革誌石碑照片" loading="lazy"><span>石碑原貌（點圖放大）</span></a><pre>桃園縣大園鄉沙崙村保安宮奉祀保安廣澤尊王為主神 嘗思所崇大忠大
 孝至仁至勇謂之聖 十八年華身顯武德之威赫 保衛國家以仁政德洽之安
 邦 聖德神通廣澤華夏為中天 敕封保安廣澤尊王 道號九天考輔保安廣
 澤尊王 溯道經云北斗轉迴降誕于永壽元年歲次乙未二月廿二日 七十二
@@ -370,12 +212,7 @@
 監事 陳文華 陳木樹 林文香
 監工 李金藤 陳　才
 會計 陳其福
-出納 徐正結</pre>
-</details>
-<details class="stele">
-  <summary><span class="st-t">沙崙保安宮整建工程誌</span><span class="st-w">中華民國九十三年四月</span></summary>
-  <a class="st-photo" href="img/stele_p25.jpg" target="_blank" rel="noopener"><img src="img/stele_p25.jpg" alt="沙崙保安宮整建工程誌石碑照片" loading="lazy"><span>石碑原貌（點圖放大）</span></a>
-  <pre>緣起：
+出納 徐正結</pre></details><details class="stele"><summary><span class="st-t">沙崙保安宮整建工程誌</span><span class="st-w">中華民國九十三年四月</span></summary><a class="st-photo" href="img/stele_p25.jpg" target="_blank" rel="noopener"><img src="img/stele_p25.jpg" alt="沙崙保安宮整建工程誌石碑照片" loading="lazy"><span>石碑原貌（點圖放大）</span></a><pre>緣起：
 保安廣澤尊王 威靈顯赫 神恩廣被 眾信四方 香火鼎盛 民國六十五年歲次
 丙辰 遷址擴建 廟廓宏具 民國七十七年歲次戊辰 配合慶成建醮 興建歡迎牌樓、
 增購廟地修葺過水庭 增建鐘鼓樓及鄉公所編列興建社區活動中心 充實文康設施等 並
@@ -415,12 +252,7 @@
 廟祝：陳蕃薯
 敬撰：蘇傳登
 全謹識
-中華民國九十三年四月吉旦</pre>
-</details>
-<details class="stele">
-  <summary><span class="st-t">沙崙保安宮購地源由</span><span class="st-w">中華民國九十八年十二月一日</span></summary>
-  <a class="st-photo" href="img/stele_p22.jpg" target="_blank" rel="noopener"><img src="img/stele_p22.jpg" alt="沙崙保安宮購地源由石碑照片" loading="lazy"><span>石碑原貌（點圖放大）</span></a>
-  <pre>沙崙保安宮管理委員會由主任委員陳朝和先生於九十六年七月初召開購地會議，全體委員、監事一致通過向桃園地方法院標購沙崙段沙崙小段一七六三地號面積二三八八M²（七二二、三坪）當年七月廿一日押標金新台幣捌拾陸萬陸仟元正，尾款當年八月九日繳款新台幣陸佰壹拾壹萬肆仟元正，總計新台幣陸佰玖拾捌萬元整，經委員會開會通過讓善信大德自由認捐現將購買土地自由捐獻善信大德芳名及金額、住址詳列於后。
+中華民國九十三年四月吉旦</pre></details><details class="stele"><summary><span class="st-t">沙崙保安宮購地源由</span><span class="st-w">中華民國九十八年十二月一日</span></summary><a class="st-photo" href="img/stele_p22.jpg" target="_blank" rel="noopener"><img src="img/stele_p22.jpg" alt="沙崙保安宮購地源由石碑照片" loading="lazy"><span>石碑原貌（點圖放大）</span></a><pre>沙崙保安宮管理委員會由主任委員陳朝和先生於九十六年七月初召開購地會議，全體委員、監事一致通過向桃園地方法院標購沙崙段沙崙小段一七六三地號面積二三八八M²（七二二、三坪）當年七月廿一日押標金新台幣捌拾陸萬陸仟元正，尾款當年八月九日繳款新台幣陸佰壹拾壹萬肆仟元正，總計新台幣陸佰玖拾捌萬元整，經委員會開會通過讓善信大德自由認捐現將購買土地自由捐獻善信大德芳名及金額、住址詳列於后。
 
 沙崙保安宮管理委員會
 主任委員：陳連壽
@@ -475,76 +307,18 @@
 張文吉　大園村
 周榮昌　蘆竹鄉
 
-中華民國九十八年十二月一日</pre>
-</details>
-  </div>
-</section>
-
-<section id="visit">
-  <div class="wrap">
-    <div class="sec-head"><h2>參拜資訊</h2></div>
-    <div class="visit">
-      <a class="map maplink" href="https://www.google.com/maps/search/?api=1&amp;query=%E6%A1%83%E5%9C%92%E5%B8%82%E5%A4%A7%E5%9C%92%E5%8D%80%E4%B8%AD%E5%A4%AE%E8%B7%AF418%E4%B9%8B1%E8%99%9F" target="_blank" rel="noopener"><span><b>📍 用 Google 地圖導航</b><br>中央路 418 之一號（臨時紅壇）</span></a>
-      <div>
-        <ul>
-          <li><b>地址</b>：<span data-f="address">桃園市大園區沙崙里中央路 418 之一號（臨時紅壇）</span></li>
-          <li><b>管理委員會</b>：主任委員 <span data-f="chair">駱文章</span></li>
-          <li><b>電話</b>：<a href="tel:033836940" data-f="phone" data-tel>03-383-6940</a></li>
-          <li><b>開放時間</b>：<span data-f="hours">每日 06:00 – 19:00</span></li>
-          <li><b>點燈服務</b>：<span data-f="lamp">光明燈、太歲燈</span> <span class="pending">登記方式待提供</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <div><span class="fn">沙崙保安宮</span>管理委員會（主任委員 駱文章） · 桃園市大園區沙崙里中央路 418 之一號 · 03-383-6940</div>
-    <div>網站初版；標示「待廟方提供」處於資料到齊後補上。</div>
-  </div>
-</footer>
-
-<script>
-/* 後台內容：讀 content.json 套進頁面；讀不到就維持上面寫死的內容 */
-(function(){
-  function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-  function show(id){var e=document.getElementById(id);if(e)e.hidden=false;var n=document.querySelector('[data-nav="'+id+'"]');if(n)n.hidden=false}
-  function fig(p,extra){return '<figure'+(extra?' class="extra"':'')+'><a href="'+esc(p.src)+'" target="_blank" rel="noopener"><img src="'+esc(p.thumb)+'" alt="'+esc(p.caption)+'" loading="lazy" decoding="async"></a>'+(p.caption?'<figcaption>'+esc(p.caption)+'</figcaption>':'')+'</figure>'}
-  function fillGallery(id,list,append){var g=document.getElementById(id);if(!g||!list||!list.length)return;
-    var base=append?g.querySelectorAll('figure').length:0,LIM=12;
-    var html=list.map(function(p,i){return fig(p,base+i>=LIM)}).join('');
-    if(append)g.insertAdjacentHTML('beforeend',html);else g.innerHTML=html;
-    var b=document.querySelector('[data-more="'+id+'"]');
-    if(base+list.length>LIM){if(!b){g.insertAdjacentHTML('afterend','<p class="more"><button type="button" data-more="'+id+'">看更多照片</button></p>');b=document.querySelector('[data-more="'+id+'"]')}b.hidden=false;
-      b.onclick=function(){g.classList.add('all');b.hidden=true}}}
-  function openNews(n){var d=document.getElementById('news-dlg');
-    if(!d){document.body.insertAdjacentHTML('beforeend','<dialog id="news-dlg"><button type="button" class="x" aria-label="關閉">×</button><div class="hd"></div><div class="bd"></div></dialog>');
-      d=document.getElementById('news-dlg');d.querySelector('.x').onclick=function(){d.close()};
-      d.addEventListener('click',function(e){if(e.target===d)d.close()})}
-    d.querySelector('.hd').innerHTML='<time>'+esc(n.date)+'</time><h3>'+esc(n.title)+'</h3>';
-    d.querySelector('.bd').innerHTML=(n.body?'<p>'+esc(n.body)+'</p>':'')+((n.photos||[]).length?'<div class="ph">'+n.photos.map(function(p){
-      return '<a href="'+esc(p.src)+'" target="_blank" rel="noopener"><img src="'+esc(p.thumb)+'" alt="'+esc(n.title)+'" loading="lazy" decoding="async"></a>'}).join('')+'</div>':'');
-    d.querySelector('.bd').scrollTop=0;d.showModal()}
-  fetch('content.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null}).then(function(c){
-    if(!c)return;var s=c.settings||{},ph=c.photos||{};
-    document.querySelectorAll('[data-f]').forEach(function(e){var v=s[e.dataset.f];if(!v)return;
-      e.textContent=v;if(e.hasAttribute('data-tel'))e.href='tel:'+v.replace(/[^0-9+]/g,'')});
-    if(s.nt_intro||s.nt_account||(ph['建新廟']||[]).length){show('newtemple');
-      if(s.nt_intro)document.getElementById('nt-intro').textContent=s.nt_intro;
-      if(s.nt_progress)document.getElementById('nt-intro').insertAdjacentHTML('afterend','<p class="nt-progress"><b>目前進度：</b>'+esc(s.nt_progress)+'</p>');
-      var im=(ph['建新廟']||[])[0];if(im){var box=document.querySelector('.nt-img');document.getElementById('nt-noimg').remove();
-        box.insertAdjacentHTML('afterbegin','<img src="'+esc(im.src)+'" alt="'+esc(im.caption||'新廟示意圖')+'" loading="lazy">');
-        if(im.caption)box.querySelector('.cap').textContent=im.caption}}
-    var news=c.news||[];
-    if(news.length||(ph['活動']||[]).length){show('news');
-      var nl=document.getElementById('news-list');
-      nl.innerHTML=news.map(function(n,i){var k=(n.photos||[]).length;return '<button type="button" class="news-item" data-n="'+i+'"><span class="t"><time>'+(n.pin?'<span class="pin">置頂</span>':'')+esc(n.date)+'</time><h3>'+esc(n.title)+'</h3></span><span class="go">'+(k?'📷 '+k+' 張 ':'')+'看內容 ›</span></button>'}).join('');
-      nl.onclick=function(e){var b=e.target.closest('[data-n]');if(b)openNews(news[+b.dataset.n])}
-      fillGallery('g-活動',ph['活動'],false)}
-    fillGallery('g-廟景',ph['廟景'],true);
-  }).catch(function(){});
-})();
-</script>
-</body>
-</html>
+中華民國九十八年十二月一日</pre></details></div></section><section id="visit" class="block-address" style="background:#FBF7F0"><div class="wrap"><div class="sec-head"><h2>參拜資訊</h2></div><div class="visit"><a class="map maplink" href="https://www.google.com/maps/search/?api=1&amp;query=%E6%A1%83%E5%9C%92%E5%B8%82%E5%A4%A7%E5%9C%92%E5%8D%80%E4%B8%AD%E5%A4%AE%E8%B7%AF418%E4%B9%8B1%E8%99%9F" target="_blank" rel="noopener"><span><b>📍 用 Google 地圖導航</b><br>中央路 418 之一號（臨時紅壇）</span></a><div><ul><li><b>地址</b>：<span>桃園市大園區沙崙里中央路 418 之一號（臨時紅壇）</span></li><li><b>管理委員會</b>：主任委員 <span>駱文章</span></li><li><b>電話</b>：<a href="tel:033836940">03-383-6940</a></li><li><b>開放時間</b>：<span>每日 06:00 – 19:00</span></li><li><b>點燈服務</b>：<span>光明燈、太歲燈</span> <span class="pending">登記方式待提供</span></li></ul></div></div></div></section><footer id="footer"><div class="wrap"><div><span class="fn">沙崙保安宮</span>管理委員會（主任委員 駱文章） · 桃園市大園區沙崙里中央路 418 之一號 · 03-383-6940</div><div>網站初版；標示「待廟方提供」處於資料到齊後補上。</div></div></footer><script>(function bind(news){
+ // srcdoc uses an asset base URL; intercept hashes to keep navigation in the draft.
+ document.querySelectorAll('a[href^="#"]').forEach(function(a){a.onclick=function(e){
+  e.preventDefault();var id=a.getAttribute('href').slice(1),target=id?document.getElementById(id):document.body;
+  if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
+ };});
+ document.querySelectorAll('[data-more]').forEach(function(b){b.onclick=function(){document.getElementById(b.dataset.more).classList.add('all');b.hidden=true;};});
+ document.querySelectorAll('[data-news]').forEach(function(b){b.onclick=function(){
+  var n=news[Number(b.dataset.news)],d=document.getElementById('news-dlg');if(!n)return;
+  if(!d){d=document.createElement('dialog');d.id='news-dlg';d.innerHTML='<button type="button" class="x" aria-label="關閉">×</button><div class="hd"></div><div class="bd"></div>';document.body.appendChild(d);d.querySelector('.x').onclick=function(){d.close();};d.onclick=function(e){if(e.target===d)d.close();};}
+  var hd=d.querySelector('.hd'),bd=d.querySelector('.bd');hd.textContent='';bd.textContent='';
+  var time=document.createElement('time');time.textContent=n.date;hd.appendChild(time);var h=document.createElement('h3');h.textContent=n.title;hd.appendChild(h);var p=document.createElement('p');p.textContent=n.body;bd.appendChild(p);
+  var grid=document.createElement('div');grid.className='ph';(n.photos||[]).forEach(function(p){var a=document.createElement('a');a.href=p.src;a.target='_blank';a.rel='noopener';var img=document.createElement('img');img.src=p.thumb||p.src;img.alt=n.title;img.loading='lazy';a.appendChild(img);grid.appendChild(a);});bd.appendChild(grid);d.showModal();
+ };});
+})([]);</script></body></html>
