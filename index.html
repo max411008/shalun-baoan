@@ -122,6 +122,8 @@
   .nt{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:stretch}
   .nt-img{position:relative;min-height:320px;background:var(--bg-2);border:1px solid var(--gold);box-shadow:0 0 0 6px #fff,0 0 0 7px var(--gold-soft);display:grid;place-items:center;text-align:center;color:var(--muted);font-size:15px}
   .nt-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .nt-img img.nt-static{position:static;height:auto;display:block}
+  .nt-img:has(img.nt-static){min-height:0;display:block}
   .nt-img .cap{position:absolute;left:0;right:0;bottom:0;padding:8px 14px;background:rgba(122,21,15,.82);color:#FFF4DC;font-size:14px;letter-spacing:.08em}
   .nt-txt p{margin:0 0 14px;color:var(--ink-2);text-align:justify}
   .donate{margin-top:18px;background:#fff;border:1px solid var(--line);border-top:4px solid var(--red);padding:18px 22px}
@@ -197,8 +199,8 @@
     <div class="sec-head"><h2>興建新廟</h2><p>誠邀十方信眾共襄盛舉</p></div>
     <div class="nt">
       <div class="nt-img">
-        <span id="nt-noimg">新廟設計圖／完工示意圖<br><span class="pending">待廟方提供</span></span>
-        <div class="cap">沙崙保安宮新廟　示意圖</div>
+        <img id="nt-noimg" class="nt-static" src="img/newtemple.jpg" alt="沙崙保安宮新廟完工示意圖">
+        <div class="cap">沙崙保安宮新廟　完工示意圖</div>
       </div>
       <div class="nt-txt">
         <p id="nt-intro">舊廟因桃園航空城計畫列入徵收、將來拆除，管理委員會已在新廟預定地搭建臨時紅壇，暫奉保安廣澤尊王與眾神。為讓尊王早日安座新殿，保安宮正籌建新廟，懇請各方信士大德發心護持，共成功德。</p>
